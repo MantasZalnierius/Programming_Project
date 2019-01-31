@@ -15,6 +15,7 @@ class Game
 	// put your game objects here eg player object and 
 	// array of enemy objects etc.
 	sf::RenderWindow m_window;
+	sf::RectangleShape onScreenArea;
 	Player player;
 	sf::Font m_font;  // font for writing text
 	sf::Text m_message;  // text to write on the screen

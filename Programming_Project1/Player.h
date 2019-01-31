@@ -23,6 +23,7 @@ public:
 	void		setUpPlayer();
 	void		loadSpriteAndTexture();
 	void		move(sf::Event t_keyboardEvent);
+	void		boundaryCollision();
 	sf::Sprite	getBody();
 };
 

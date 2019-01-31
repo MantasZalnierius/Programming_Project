@@ -15,7 +15,7 @@ Player::~Player()
 void Player::setUpPlayer()
 {
 	m_playerIsAlive = true;
-	m_playerSpeed = 5;
+	m_playerSpeed = 10;
 	m_playerHealth = 3;
 	m_playerStartPoistion = sf::Vector2f{ 350.0f, 530.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
@@ -53,24 +53,36 @@ sf::Sprite Player::getBody() // get the player's body
 
 void Player::move(sf::Event t_keyboardEvent)
 {
+
 	if (t_keyboardEvent.key.code == sf::Keyboard::Left)
 	{
-		m_playerSprite.move(-10, 0);
+		m_playerSprite.move(-m_playerSpeed, 0);
+		m_playerSprite.setTexture(m_playerTextureLeft);
 	}
 
 	if (t_keyboardEvent.key.code == sf::Keyboard::Right)
 	{
-		m_playerSprite.move(10, 0);
+		m_playerSprite.move(m_playerSpeed, 0);
+		m_playerSprite.setTexture(m_playerTextureRight);
 	}
 
 	if (t_keyboardEvent.key.code == sf::Keyboard::Up)
 	{
-		m_playerSprite.move(0, -10);
+		m_playerSprite.move(0, -m_playerSpeed);
+		m_playerSprite.setTexture(m_playerTextureUp);
 	}
 
 	if (t_keyboardEvent.key.code == sf::Keyboard::Down)
 	{
-		m_playerSprite.move(0, 10);
+		m_playerSprite.move(0, m_playerSpeed);
+		m_playerSprite.setTexture(m_playerTextureDown);
 	}
 }
 
+void Player::boundaryCollision()
+{
+	if (m_playerSprite.getPosition().x > 800 - m_playerSprite.getGlobalBounds().width)
+	{
+		m_playerSpeed = 0;
+	}
+}
