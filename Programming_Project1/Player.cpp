@@ -81,8 +81,23 @@ void Player::move(sf::Event t_keyboardEvent)
 
 void Player::boundaryCollision()
 {
-	if (m_playerSprite.getPosition().x > 800 - m_playerSprite.getGlobalBounds().width)
+	if (m_playerSprite.getPosition().x >= 810 - m_playerSprite.getGlobalBounds().width)
 	{
-		m_playerSpeed = 0;
+		m_playerSprite.setPosition(sf::Vector2f{ (m_playerSprite.getPosition().x - 10), m_playerSprite.getPosition().y });
+	}
+
+	if (m_playerSprite.getPosition().x  <= -65 + m_playerSprite.getGlobalBounds().width)
+	{
+		m_playerSprite.setPosition(sf::Vector2f{ (m_playerSprite.getPosition().x + 10), m_playerSprite.getPosition().y });
+	}
+
+	if (m_playerSprite.getPosition().y <= -65 + m_playerSprite.getGlobalBounds().height)
+	{
+		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x, (m_playerSprite.getPosition().y + 10) });
+	}
+
+	if (m_playerSprite.getPosition().y >= 610 - m_playerSprite.getGlobalBounds().width)
+	{
+		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x , (m_playerSprite.getPosition().y - 10) });
 	}
 }

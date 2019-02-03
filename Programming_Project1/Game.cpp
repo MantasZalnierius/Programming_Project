@@ -29,7 +29,6 @@ int main()
 Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
 // Default constructor
 {
-	onScreenArea.setSize(sf::Vector2f(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)));
 }
 
 Game::~Game()
