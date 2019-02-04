@@ -1,5 +1,4 @@
 #include "Player.h"   // include Player header file
-#include <iostream>
 
 Player::Player() // default constructor
 {
@@ -16,7 +15,7 @@ void Player::setUpPlayer()
 {
 	m_playerIsAlive = true;
 	m_playerSpeed = 10;
-	m_playerHealth = 3;
+	m_playerHealth = 5;
 	m_playerStartPoistion = sf::Vector2f{ 350.0f, 530.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
 }
@@ -81,12 +80,12 @@ void Player::move(sf::Event t_keyboardEvent)
 
 void Player::boundaryCollision()
 {
-	if (m_playerSprite.getPosition().x >= 810 - m_playerSprite.getGlobalBounds().width)
+	if (m_playerSprite.getPosition().x >= 775 - m_playerSprite.getGlobalBounds().width)
 	{
 		m_playerSprite.setPosition(sf::Vector2f{ (m_playerSprite.getPosition().x - 10), m_playerSprite.getPosition().y });
 	}
 
-	if (m_playerSprite.getPosition().x  <= -65 + m_playerSprite.getGlobalBounds().width)
+	if (m_playerSprite.getPosition().x  <= -30 + m_playerSprite.getGlobalBounds().width)
 	{
 		m_playerSprite.setPosition(sf::Vector2f{ (m_playerSprite.getPosition().x + 10), m_playerSprite.getPosition().y });
 	}
@@ -96,7 +95,12 @@ void Player::boundaryCollision()
 		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x, (m_playerSprite.getPosition().y + 10) });
 	}
 
-	if (m_playerSprite.getPosition().y >= 610 - m_playerSprite.getGlobalBounds().width)
+	if (m_playerSprite.getPosition().y >= 565 - m_playerSprite.getGlobalBounds().height)
+	{
+		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x , (m_playerSprite.getPosition().y - 10) });
+	}
+
+	if (m_playerSprite.getPosition().y >= 610 - m_playerSprite.getGlobalBounds().height)
 	{
 		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x , (m_playerSprite.getPosition().y - 10) });
 	}

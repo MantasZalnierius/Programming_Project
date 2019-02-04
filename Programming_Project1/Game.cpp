@@ -49,6 +49,13 @@ void Game::loadContent()
 	m_message.setFillColor(sf::Color::White); // set the text colour
 	m_message.setPosition(10, 10);  // its position on the screen
 
+	if (!m_backgroundTexture.loadFromFile("ASSETS/IMAGES/floor.png"))
+	{
+		std::cout << "Did load floor file ";
+	}
+
+	m_backgroundSprite.setTexture(m_backgroundTexture);
+
 }
 
 void Game::processEvents()
@@ -107,7 +114,12 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
+	m_window.draw(m_backgroundSprite);
 	m_window.draw(player.getBody());
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		m_window.draw(enemies[i].getBody());
+	}
 	m_window.display();
 }
 

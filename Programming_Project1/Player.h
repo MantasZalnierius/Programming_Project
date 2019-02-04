@@ -2,6 +2,7 @@
 #define PLAYER
 
 #include "SFML/Graphics.hpp" 
+#include <iostream>
 
 class Player
 {
