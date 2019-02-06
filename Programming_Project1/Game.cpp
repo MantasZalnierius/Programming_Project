@@ -109,6 +109,14 @@ void Game::run()
 void Game::update(sf::Time t_deltaTime)
 {
 	player.boundaryCollision();
+
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		enemies[i].move();
+	}
+
+	enemyFollower.move(player.getBody().getPosition());
+	enemyFollower.playerCollision(player.getBody());
 }
 
 void Game::render()
@@ -120,6 +128,7 @@ void Game::render()
 	{
 		m_window.draw(enemies[i].getBody());
 	}
+	m_window.draw(enemyFollower.getBody());
 	m_window.display();
 }
 

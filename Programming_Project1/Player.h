@@ -25,7 +25,7 @@ public:
 	void		loadSpriteAndTexture();
 	void		move(sf::Event t_keyboardEvent);
 	void		boundaryCollision();
-	sf::Sprite	getBody();
+	sf::Sprite	getBody() { return m_playerSprite; }
 };
 
 #endif

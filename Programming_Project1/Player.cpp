@@ -45,11 +45,6 @@ void Player::loadSpriteAndTexture()
 	m_playerSprite.setTexture(m_playerTextureUp);
 }
 
-sf::Sprite Player::getBody() // get the player's body
-{
-	return m_playerSprite;
-}
-
 void Player::move(sf::Event t_keyboardEvent)
 {
 

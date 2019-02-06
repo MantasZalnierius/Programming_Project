@@ -12,7 +12,8 @@ class Enemy
 	sf::Sprite m_enemySprite;
 	int m_enemyHealth;
 	bool m_enemyIsAlive;
-	int m_enemySpeed;
+	int m_enemySpeedX;
+	int m_enemySpeedY;
 	sf::Vector2f m_enemyStartPoistion{};
 	sf::Vector2f m_enemyScale{};
 

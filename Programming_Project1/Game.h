@@ -8,6 +8,8 @@
 #include <ctime>   // supports ctime function
 #include "Globals.h"   // include Global header file
 #include "Enemy.h"
+#include "EnemyFollower.h"
+#include "MyVector2.h"
 
 class Game
 {
@@ -20,6 +22,7 @@ class Game
 	sf::Texture m_backgroundTexture;
 	Player player;
 	Enemy enemies[MAX_ENEMIES];
+	EnemyFollower enemyFollower;
 	sf::Font m_font;  // font for writing text
 	sf::Text m_message;  // text to write on the screen
 	bool m_exitGame;
