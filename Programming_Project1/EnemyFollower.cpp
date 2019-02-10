@@ -42,6 +42,6 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 {
 	if (m_enemyFollowerSprite.getGlobalBounds().intersects(t_playerSprite.getGlobalBounds()))
 	{
-		m_enemyFollowerSprite.setPosition(sf::Vector2f{0.0f, 0.0f});
+		m_enemyFollowerSprite.setPosition(sf::Vector2f{ 0.0f, 0.0f });
 	}
 }

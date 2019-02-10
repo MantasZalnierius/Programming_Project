@@ -27,7 +27,7 @@
     <ClCompile Include="EnemyFollower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\New folder (2)\Lab3-Mantas_Zalnierius\Lab3\vector\vector\MyVector2.cpp">
+    <ClCompile Include="MyVector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="EnemyFollower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\New folder (2)\Lab3-Mantas_Zalnierius\Lab3\vector\vector\MyVector2.h">
+    <ClInclude Include="MyVector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -114,9 +114,13 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		enemies[i].move();
 	}
+	enemyFollower1.move(player.getBody().getPosition());
+	enemyFollower1.playerCollision(player.getBody());
+	enemyFollower2.move(player.getBody().getPosition());
+	enemyFollower2.playerCollision(player.getBody());
 
-	enemyFollower.move(player.getBody().getPosition());
-	enemyFollower.playerCollision(player.getBody());
+	
+	
 }
 
 void Game::render()
@@ -128,7 +132,9 @@ void Game::render()
 	{
 		m_window.draw(enemies[i].getBody());
 	}
-	m_window.draw(enemyFollower.getBody());
+	m_window.draw(enemyFollower1.getBody());
+	m_window.draw(enemyFollower2.getBody());
+	
 	m_window.display();
 }
 

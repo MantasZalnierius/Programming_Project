@@ -22,7 +22,8 @@ class Game
 	sf::Texture m_backgroundTexture;
 	Player player;
 	Enemy enemies[MAX_ENEMIES];
-	EnemyFollower enemyFollower;
+	EnemyFollower enemyFollower1;
+	EnemyFollower enemyFollower2;
 	sf::Font m_font;  // font for writing text
 	sf::Text m_message;  // text to write on the screen
 	bool m_exitGame;

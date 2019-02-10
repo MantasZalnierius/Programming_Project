@@ -50,11 +50,6 @@ void Enemy::move()
 		m_enemySpeedY *= -1;
 	}
 
-	/*if (m_enemySprite.getPosition().y >= 610 - m_enemySprite.getGlobalBounds().height)
-	{
-		m_enemySpeed *= -1;
-	}*/
-
 	if (m_enemySprite.getPosition().y >= 570 - m_enemySprite.getGlobalBounds().height)
 	{
 		m_enemySpeedY *= -1;

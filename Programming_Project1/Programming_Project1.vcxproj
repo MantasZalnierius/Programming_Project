@@ -141,18 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\New folder (2)\Lab3-Mantas_Zalnierius\Lab3\vector\vector\MyVector2.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFollower.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MyVector2.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\New folder (2)\Lab3-Mantas_Zalnierius\Lab3\vector\vector\MyVector2.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFollower.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="MyVector2.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
