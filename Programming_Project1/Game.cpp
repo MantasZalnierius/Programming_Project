@@ -92,6 +92,12 @@ void Game::run()
 	sf::Clock clock; // This initialize's the Clock object into memory.
 	sf::Time timeSinceLastUpdate = sf::Time::Zero; // This lets the Time object equal to Zero.
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
+	sf::Vector2f poistionEnemy1{ 400.0f, -400.0f };
+	sf::Vector2f postiionEnemy2{ 1000.0f, 600.0f };
+
+	enemyFollower1.setUpEnemeyFollowerPoistion(poistionEnemy1);
+	enemyFollower2.setUpEnemeyFollowerPoistion(postiionEnemy2);
+
 	while (m_window.isOpen())
 	{
 		processEvents(); // as many as possible

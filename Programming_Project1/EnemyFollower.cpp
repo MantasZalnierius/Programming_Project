@@ -45,3 +45,8 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 		m_enemyFollowerSprite.setPosition(sf::Vector2f{ 0.0f, 0.0f });
 	}
 }
+
+void EnemyFollower::setUpEnemeyFollowerPoistion(sf::Vector2f t_followerPoistion)
+{
+	m_enemyFollowerSprite.setPosition(t_followerPoistion);
+}

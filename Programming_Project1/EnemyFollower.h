@@ -13,6 +13,7 @@ class EnemyFollower
 	sf::Texture enemyFollowerTexture;
 	sf::Sprite m_enemyFollowerSprite;
 	int m_enemyFollowerHealth;
+	int counter = 0;
 	bool m_enemyFollowerIsAlive;
 	int m_enemyFollowerSpeedX;
 	int m_enemyFollowerSpeedY;
@@ -28,7 +29,8 @@ public:
 	void		loadSpriteAndTexture();
 	void		move(sf::Vector2f t_playerPoistion);
 	void		playerCollision(sf::Sprite t_playerPosition);
-	sf::Sprite	getBody() { return m_enemyFollowerSprite; }
+	void		setUpEnemeyFollowerPoistion(sf::Vector2f t_followerPoistion1);
+	inline sf::Sprite	getBody() { return m_enemyFollowerSprite; }
 };
 
 
