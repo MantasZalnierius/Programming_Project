@@ -14,7 +14,8 @@ Player::~Player()
 void Player::setUpPlayer()
 {
 	m_playerIsAlive = true;
-	m_playerSpeed = 10;
+	playerLookDirection = sf::Vector2f{ 0.0f, -5.0f };
+	playerVelocity = sf::Vector2f{ 0.0, 0.0 };
 	m_playerHealth = 5;
 	m_playerStartPoistion = sf::Vector2f{ 350.0f, 530.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
@@ -45,32 +46,40 @@ void Player::loadSpriteAndTexture()
 	m_playerSprite.setTexture(m_playerTextureUp);
 }
 
-void Player::move(sf::Event t_keyboardEvent)
+void Player::move()
 {
+	playerVelocity = sf::Vector2f{ 0.0f, 0.0f };
 
-	if (t_keyboardEvent.key.code == sf::Keyboard::Left)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		m_playerSprite.move(-m_playerSpeed, 0);
+		playerVelocity.x = -5.0f;
 		m_playerSprite.setTexture(m_playerTextureLeft);
 	}
 
-	if (t_keyboardEvent.key.code == sf::Keyboard::Right)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		m_playerSprite.move(m_playerSpeed, 0);
+		playerVelocity.x = 5.0f;
 		m_playerSprite.setTexture(m_playerTextureRight);
 	}
 
-	if (t_keyboardEvent.key.code == sf::Keyboard::Up)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		m_playerSprite.move(0, -m_playerSpeed);
+		playerVelocity.y = -5.0f;
 		m_playerSprite.setTexture(m_playerTextureUp);
 	}
 
-	if (t_keyboardEvent.key.code == sf::Keyboard::Down)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		m_playerSprite.move(0, m_playerSpeed);
+		playerVelocity.y = 5.0f;
 		m_playerSprite.setTexture(m_playerTextureDown);
 	}
+
+	if (playerVelocity.x != 0.0f || playerVelocity.y != 0.0f)
+	{
+		playerLookDirection = playerVelocity;
+	}
+
+	m_playerSprite.move(playerVelocity);
 }
 
 void Player::boundaryCollision()

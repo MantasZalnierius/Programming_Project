@@ -29,6 +29,7 @@ int main()
 Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
 // Default constructor
 {
+	screenArea.setSize(sf::Vector2f{ static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT) });
 }
 
 Game::~Game()
@@ -77,12 +78,6 @@ void Game::processEvents()
 			}
 
 		}
-
-		if (sf::Event::KeyPressed == event.type)
-		{
-			player.move(event);
-		}
-
 	}
 }
 
@@ -92,11 +87,18 @@ void Game::run()
 	sf::Clock clock; // This initialize's the Clock object into memory.
 	sf::Time timeSinceLastUpdate = sf::Time::Zero; // This lets the Time object equal to Zero.
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
+
 	sf::Vector2f poistionEnemy1{ 400.0f, -400.0f };
 	sf::Vector2f postiionEnemy2{ 1000.0f, 600.0f };
 
 	enemyFollower1.setUpEnemeyFollowerPoistion(poistionEnemy1);
 	enemyFollower2.setUpEnemeyFollowerPoistion(postiionEnemy2);
+
+	/*sf::Vector2f aba = bullets[0].getPosition();
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		bullets[i].getBody().setPosition(aba);
+	}*/
 
 	while (m_window.isOpen())
 	{
@@ -114,19 +116,29 @@ void Game::run()
 
 void Game::update(sf::Time t_deltaTime)
 {
+	player.move();
+
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection());
+	}
+
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		bullets[i].move(screenArea, player.getBody(), player.getLookDirection());
+	}
+
 	player.boundaryCollision();
 
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		enemies[i].move();
 	}
+
 	enemyFollower1.move(player.getBody().getPosition());
 	enemyFollower1.playerCollision(player.getBody());
 	enemyFollower2.move(player.getBody().getPosition());
 	enemyFollower2.playerCollision(player.getBody());
-
-	
-	
 }
 
 void Game::render()
@@ -137,6 +149,10 @@ void Game::render()
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		m_window.draw(enemies[i].getBody());
+	}
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		m_window.draw(bullets[i].getBody());
 	}
 	m_window.draw(enemyFollower1.getBody());
 	m_window.draw(enemyFollower2.getBody());

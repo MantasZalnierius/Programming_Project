@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "EnemyFollower.h"
 #include "MyVector2.h"
+#include "Bullet.h"
 
 class Game
 {
@@ -20,8 +21,10 @@ class Game
 	sf::RenderWindow m_window;
 	sf::Sprite m_backgroundSprite;
 	sf::Texture m_backgroundTexture;
+	sf::RectangleShape screenArea;
 	Player player;
 	Enemy enemies[MAX_ENEMIES];
+	Bullet bullets[MAX_BULLETS];
 	EnemyFollower enemyFollower1;
 	EnemyFollower enemyFollower2;
 	sf::Font m_font;  // font for writing text

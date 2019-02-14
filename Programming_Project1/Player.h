@@ -14,7 +14,8 @@ class Player
 	sf::Sprite m_playerSprite;
 	int m_playerHealth;
 	bool m_playerIsAlive;
-	int m_playerSpeed;
+	sf::Vector2f playerVelocity{};
+	sf::Vector2f playerLookDirection{};
 	sf::Vector2f m_playerStartPoistion{};
 	sf::Vector2f m_playerScale{};
 
@@ -23,9 +24,10 @@ public:
 	~Player();
 	void		setUpPlayer();
 	void		loadSpriteAndTexture();
-	void		move(sf::Event t_keyboardEvent);
+	void		move();
 	void		boundaryCollision();
-	sf::Sprite	getBody() { return m_playerSprite; }
+	inline sf::Sprite	getBody() { return m_playerSprite; }
+	inline sf::Vector2f getLookDirection() { return playerLookDirection; }
 };
 
 #endif
