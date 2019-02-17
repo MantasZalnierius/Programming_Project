@@ -12,14 +12,10 @@ Bullet::~Bullet()
 
 void Bullet::setUpBullet()
 {
-	coldown = 5;
-	for (int i = 0; i < MAX_BULLETS; i++)
-	{
-		Velocities[i] = sf::Vector2f{ 0.0f, 0.0f };
-	}
+	Velocities = sf::Vector2f{ 0.0f, 0.0f };
 	position = sf::Vector2f{ -2000.0f, -2000.0f };
 	sprite.setPosition(position);
-	
+	isActive = false;
 }
 
 void Bullet::loadSpriteAndTexture()
@@ -47,45 +43,40 @@ void Bullet::loadSpriteAndTexture()
 	sprite.setTexture(textureUp);
 }
 
-void Bullet::setDirection(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection)
+void Bullet::setDirection(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection, int &t_cooldown)
 {
-	if (coldown <= 0)
+	if (t_cooldown <= 0)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			for (int i = 0; i < MAX_BULLETS; i++)
+			if (!getStatus() || sprite.getPosition().x == -2000)
 			{
-				if (sprite.getPosition().x == -2000)
-				{
-					sprite.setPosition(t_player.getPosition().x, t_player.getPosition().y);
-					Velocities[i] = t_playerLookDirection;
-					changeTexture(t_playerLookDirection);
-					Velocities[i].x *= 2;
-					Velocities[i].y *= 2;
-					coldown = 10;
-					break;
-				}
+				isActive = true;
+				sprite.setPosition(t_player.getPosition().x, t_player.getPosition().y);
+				Velocities = t_playerLookDirection;
+				changeTexture(t_playerLookDirection);
+				Velocities.x *= 2;
+				Velocities.y *= 2;
+				t_cooldown = 60;
 			}
 		}
 	}
 	else
 	{
-		coldown--;
+		t_cooldown--;
 	}
 }
 
 void Bullet::move(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection)
 {
-	for (int i = 0; i < MAX_BULLETS; i++)
+	if (getStatus())
 	{
-		if (sprite.getPosition().x != -2000)
+		sprite.move(Velocities);
+		if (!t_screenArea.getGlobalBounds().intersects(sprite.getGlobalBounds()))
 		{
-			sprite.move(Velocities[i]);
-			if (!t_screenArea.getGlobalBounds().intersects(sprite.getGlobalBounds()))
-			{
-				sprite.setPosition(-2000, -2000);
-				Velocities[i] = sf::Vector2f{ 0.0f, 0.0f };
-			}
+			isActive = false;
+			sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
+			Velocities = sf::Vector2f{ 0.0f, 0.0f };
 		}
 	}
 }
@@ -107,5 +98,23 @@ void Bullet::changeTexture(sf::Vector2f t_playerLookDirection)
 	else if (t_playerLookDirection.y < 0.0)
 	{
 		sprite.setTexture(textureUp);
+	}
+}
+
+void Bullet::enemyFollowerCollision(sf::Sprite t_enemyFollower)
+{
+	if (sprite.getGlobalBounds().intersects(t_enemyFollower.getGlobalBounds()))
+	{
+		sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
+		isActive = false;
+	}
+}
+
+void Bullet::enemyCollision(sf::Sprite t_enemy)
+{
+	if (sprite.getGlobalBounds().intersects(t_enemy.getGlobalBounds()))
+	{
+		sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
+		isActive = false;
 	}
 }

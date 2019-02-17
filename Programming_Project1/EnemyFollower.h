@@ -29,8 +29,10 @@ public:
 	void		loadSpriteAndTexture();
 	void		move(sf::Vector2f t_playerPoistion);
 	void		playerCollision(sf::Sprite t_playerPosition);
+	void		bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t_playerScore);
 	void		setUpEnemeyFollowerPoistion(sf::Vector2f t_followerPoistion1);
 	inline sf::Sprite	getBody() { return m_enemyFollowerSprite; }
+	inline int			getHealth() { return m_enemyFollowerHealth; }
 };
 
 

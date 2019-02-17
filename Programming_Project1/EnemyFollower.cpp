@@ -42,7 +42,21 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 {
 	if (m_enemyFollowerSprite.getGlobalBounds().intersects(t_playerSprite.getGlobalBounds()))
 	{
-		m_enemyFollowerSprite.setPosition(sf::Vector2f{ 0.0f, 0.0f });
+		m_enemyFollowerSprite.setPosition(sf::Vector2f{(static_cast<float>((rand() % 800) + 1)), -150.0f});
+	}
+}
+
+void EnemyFollower::bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t_playerScore)
+{
+	if (t_bullet.getGlobalBounds().intersects(m_enemyFollowerSprite.getGlobalBounds()) && t_isActive)
+	{
+		m_enemyFollowerSprite.move(((rand() % 5) - 5), (rand() % 5) + 1);
+		m_enemyFollowerHealth--;
+		if (m_enemyFollowerHealth <= 0)
+		{
+			setUpEnemyFollower();
+			t_playerScore += 5;
+		}
 	}
 }
 

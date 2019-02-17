@@ -28,7 +28,11 @@ class Game
 	EnemyFollower enemyFollower1;
 	EnemyFollower enemyFollower2;
 	sf::Font m_font;  // font for writing text
-	sf::Text m_message;  // text to write on the screen
+	sf::Text m_firstEnemyFollowerHealth;
+	sf::Text m_secondEnemyFollowerHealth;
+	sf::Text m_playerHealth;
+	sf::Text m_playerScore;	// text to write on the screen
+	int cooldown;
 	bool m_exitGame;
 	int m_score;
 
@@ -37,6 +41,7 @@ public:	  // declaration of member functions
 	~Game();
 	void	loadContent();
 	void	update(sf::Time t_deltaTime);
+	void	updateText();
 	void	run();
 	void	render();
 	void	processEvents();

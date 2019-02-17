@@ -30,6 +30,8 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 // Default constructor
 {
 	screenArea.setSize(sf::Vector2f{ static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT) });
+	m_score = 0;
+	cooldown = 0;
 }
 
 Game::~Game()
@@ -45,10 +47,31 @@ void Game::loadContent()
 	}
 
 	// set up the message string 
-	m_message.setFont(m_font);  // set the font for the text
-	m_message.setCharacterSize(24); // set the text size
-	m_message.setFillColor(sf::Color::White); // set the text colour
-	m_message.setPosition(10, 10);  // its position on the screen
+	m_firstEnemyFollowerHealth.setFont(m_font);  // set the font for the text
+	m_firstEnemyFollowerHealth.setCharacterSize(24); // set the text size
+	m_firstEnemyFollowerHealth.setFillColor(sf::Color::White); // set the text colour
+	m_firstEnemyFollowerHealth.setPosition(0, 0);  // its position on the screen
+	m_firstEnemyFollowerHealth.setString("First Enemy Follower Health: " + std::to_string(enemyFollower1.getHealth()));
+
+	m_playerHealth.setFont(m_font);  // set the font for the text
+	m_playerHealth.setCharacterSize(24); // set the text size
+	m_playerHealth.setFillColor(sf::Color::White); // set the text colour
+	m_playerHealth.setPosition(0, 500);  // its position on the screen
+	m_playerHealth.setString("Player Health: " + std::to_string(player.getHealth()));
+
+	m_playerScore.setFont(m_font);  // set the font for the text
+	m_playerScore.setCharacterSize(24); // set the text size
+	m_playerScore.setFillColor(sf::Color::White); // set the text colour
+	m_playerScore.setPosition(0, 350);  // its position on the screen
+	m_playerScore.setString("Player Score: " + std::to_string(m_score));
+
+	m_secondEnemyFollowerHealth.setFont(m_font);  // set the font for the text
+	m_secondEnemyFollowerHealth.setCharacterSize(24); // set the text size
+	m_secondEnemyFollowerHealth.setFillColor(sf::Color::White); // set the text colour
+	m_secondEnemyFollowerHealth.setPosition(0, 150);  // its position on the screen
+	m_secondEnemyFollowerHealth.setString("Second Enemy Follower Health: " + std::to_string(enemyFollower2.getHealth()));
+
+
 
 	if (!m_backgroundTexture.loadFromFile("ASSETS/IMAGES/floor.png"))
 	{
@@ -80,7 +103,6 @@ void Game::processEvents()
 		}
 	}
 }
-
 void Game::run()
 {
 	
@@ -90,15 +112,7 @@ void Game::run()
 
 	sf::Vector2f poistionEnemy1{ 400.0f, -400.0f };
 	sf::Vector2f postiionEnemy2{ 1000.0f, 600.0f };
-
-	enemyFollower1.setUpEnemeyFollowerPoistion(poistionEnemy1);
-	enemyFollower2.setUpEnemeyFollowerPoistion(postiionEnemy2);
-
-	/*sf::Vector2f aba = bullets[0].getPosition();
-	for (int i = 0; i < MAX_BULLETS; i++)
-	{
-		bullets[i].getBody().setPosition(aba);
-	}*/
+	cooldown = player.getCooldown();
 
 	while (m_window.isOpen())
 	{
@@ -116,29 +130,53 @@ void Game::run()
 
 void Game::update(sf::Time t_deltaTime)
 {
+	updateText();
 	player.move();
-
-	for (int i = 0; i < MAX_BULLETS; i++)
-	{
-		bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection());
-	}
-
-	for (int i = 0; i < MAX_BULLETS; i++)
-	{
-		bullets[i].move(screenArea, player.getBody(), player.getLookDirection());
-	}
-
 	player.boundaryCollision();
+
+	enemyFollower1.move(player.getBody().getPosition());
+	enemyFollower2.move(player.getBody().getPosition());
+	enemyFollower1.playerCollision(player.getBody());
+	enemyFollower2.playerCollision(player.getBody());
+
+	player.enemyFollowerCollision(enemyFollower1.getBody());
+	player.enemyFollowerCollision(enemyFollower2.getBody());
 
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		enemies[i].move();
 	}
 
-	enemyFollower1.move(player.getBody().getPosition());
-	enemyFollower1.playerCollision(player.getBody());
-	enemyFollower2.move(player.getBody().getPosition());
-	enemyFollower2.playerCollision(player.getBody());
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection(), cooldown);
+		bullets[i].move(screenArea, player.getBody(), player.getLookDirection());
+	}
+
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		enemyFollower1.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
+		enemyFollower2.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
+		bullets[i].enemyFollowerCollision(enemyFollower1.getBody());
+		bullets[i].enemyFollowerCollision(enemyFollower2.getBody());
+	}
+
+	for (int i = 0; i < MAX_BULLETS; i++)
+	{
+		for (int j = 0; j < MAX_ENEMIES; j++)
+		{
+			bullets[i].enemyCollision(enemies[j].getBody());
+			player.enemyCollision(enemies[j].getBody());
+		}
+	}
+}
+
+void Game::updateText()
+{
+	m_firstEnemyFollowerHealth.setString("Enemy Follower Health: " + std::to_string(enemyFollower1.getHealth()));
+	m_secondEnemyFollowerHealth.setString("Second Enemy Follower Health: " + std::to_string(enemyFollower2.getHealth()));
+	m_playerHealth.setString("Player Health: " + std::to_string(player.getHealth()));
+	m_playerScore.setString("Player Score: " + std::to_string(m_score));
 }
 
 void Game::render()
@@ -152,11 +190,17 @@ void Game::render()
 	}
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
-		m_window.draw(bullets[i].getBody());
+		if (bullets[i].getStatus())
+		{
+			m_window.draw(bullets[i].getBody());
+		}
 	}
 	m_window.draw(enemyFollower1.getBody());
 	m_window.draw(enemyFollower2.getBody());
-	
+	m_window.draw(m_playerHealth);
+	m_window.draw(m_firstEnemyFollowerHealth);
+	m_window.draw(m_secondEnemyFollowerHealth);
+	m_window.draw(m_playerScore);
 	m_window.display();
 }
 

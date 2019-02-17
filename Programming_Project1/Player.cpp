@@ -13,10 +13,11 @@ Player::~Player()
 
 void Player::setUpPlayer()
 {
+	cooldown = 15;
 	m_playerIsAlive = true;
 	playerLookDirection = sf::Vector2f{ 0.0f, -5.0f };
 	playerVelocity = sf::Vector2f{ 0.0, 0.0 };
-	m_playerHealth = 5;
+	m_playerHealth = 1000;
 	m_playerStartPoistion = sf::Vector2f{ 350.0f, 530.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
 }
@@ -107,5 +108,35 @@ void Player::boundaryCollision()
 	if (m_playerSprite.getPosition().y >= 610 - m_playerSprite.getGlobalBounds().height)
 	{
 		m_playerSprite.setPosition(sf::Vector2f{ m_playerSprite.getPosition().x , (m_playerSprite.getPosition().y - 10) });
+	}
+}
+
+void Player::enemyFollowerCollision(sf::Sprite t_enemyFollower)
+{
+	if (m_playerSprite.getGlobalBounds().intersects(t_enemyFollower.getGlobalBounds()))
+	{
+		if (m_playerHealth > 0)
+		{
+			m_playerHealth--;
+		}
+		else
+		{
+			m_playerHealth = 0;
+		}
+	}
+}
+
+void Player::enemyCollision(sf::Sprite t_enemy)
+{
+	if (m_playerSprite.getGlobalBounds().intersects(t_enemy.getGlobalBounds()))
+	{
+		if (m_playerHealth > 0)
+		{
+			m_playerHealth--;
+		}
+		else
+		{
+			m_playerHealth = 0;
+		}
 	}
 }
