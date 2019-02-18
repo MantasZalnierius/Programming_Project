@@ -13,7 +13,7 @@ Player::~Player()
 
 void Player::setUpPlayer()
 {
-	cooldown = 15;
+	cooldown = 10;
 	m_playerIsAlive = true;
 	playerLookDirection = sf::Vector2f{ 0.0f, -5.0f };
 	playerVelocity = sf::Vector2f{ 0.0, 0.0 };

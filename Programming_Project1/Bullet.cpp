@@ -16,6 +16,7 @@ void Bullet::setUpBullet()
 	position = sf::Vector2f{ -2000.0f, -2000.0f };
 	sprite.setPosition(position);
 	isActive = false;
+	isFired = false;
 }
 
 void Bullet::loadSpriteAndTexture()
@@ -43,39 +44,29 @@ void Bullet::loadSpriteAndTexture()
 	sprite.setTexture(textureUp);
 }
 
-void Bullet::setDirection(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection, int &t_cooldown)
+bool Bullet::setDirection(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection, int &t_cooldown)
 {
-	if (t_cooldown <= 0)
+	if (!isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			if (!getStatus() || sprite.getPosition().x == -2000)
-			{
-				isActive = true;
-				sprite.setPosition(t_player.getPosition().x, t_player.getPosition().y);
-				Velocities = t_playerLookDirection;
-				changeTexture(t_playerLookDirection);
-				Velocities.x *= 2;
-				Velocities.y *= 2;
-				t_cooldown = 60;
-			}
-		}
+		isActive = true;
+		sprite.setPosition(t_player.getPosition().x, t_player.getPosition().y);
+		Velocities = t_playerLookDirection;
+		changeTexture(t_playerLookDirection);
+		Velocities = vectorUnitVector(t_playerLookDirection) * 5.0f;
+		return true;
 	}
-	else
-	{
-		t_cooldown--;
-	}
+
+	return false;
 }
 
 void Bullet::move(sf::RectangleShape t_screenArea, sf::Sprite t_player, sf::Vector2f t_playerLookDirection)
 {
-	if (getStatus())
+	if (isActive)
 	{
 		sprite.move(Velocities);
 		if (!t_screenArea.getGlobalBounds().intersects(sprite.getGlobalBounds()))
 		{
 			isActive = false;
-			sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
 			Velocities = sf::Vector2f{ 0.0f, 0.0f };
 		}
 	}

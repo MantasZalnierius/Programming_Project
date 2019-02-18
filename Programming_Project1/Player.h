@@ -31,6 +31,7 @@ public:
 	void		enemyCollision(sf::Sprite t_enemy);
 	inline sf::Sprite	getBody() { return m_playerSprite; }
 	inline sf::Vector2f getLookDirection() { return playerLookDirection; }
+	inline void setCooldown(int t_cooldown) { cooldown = t_cooldown; }
 	inline int getCooldown() { return cooldown; }
 	inline int getHealth() { return m_playerHealth; }
 };
