@@ -148,22 +148,29 @@ void Game::update(sf::Time t_deltaTime)
 	}
 
 
+	if (player.getCooldown() <= 0)
+	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		for (int i = 0; i < MAX_BULLETS; i++)
 		{
-			if (player.getCooldown() <= 0)
+			for (int i = 0; i < MAX_BULLETS; i++)
 			{
-					if (bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection(), cooldown))
+
+				if (bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection(), cooldown))
+				{
+					if (i == 5)
 					{
-						player.setCooldown(100);
-						break;
+						int pete = 1;
 					}
-			}
-			else
-			{
-				player.setCooldown(player.getCooldown() - 1);
+					player.setCooldown(5);
+					break;
+				}
 			}
 		}
+	}
+	else
+	{
+		player.setCooldown(player.getCooldown() - 1);
+	}
 	
 
 	for (int i = 0; i < MAX_BULLETS; i++)
@@ -171,10 +178,6 @@ void Game::update(sf::Time t_deltaTime)
 		bullets[i].move(screenArea, player.getBody(), player.getLookDirection());
 	}
 	
-
-	
-
-
 	for (int i = 0; i < MAX_BULLETS; i++)
 	{
 		enemyFollower1.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
