@@ -147,32 +147,25 @@ void Game::update(sf::Time t_deltaTime)
 		enemies[i].move();
 	}
 
-
-	if (player.getCooldown() <= 0)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			for (int i = 0; i < MAX_BULLETS; i++)
+			if (player.getCooldown() <= 0)
 			{
-
-				if (bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection(), cooldown))
+				for (int i = 0; i < MAX_BULLETS; i++)
 				{
-					if (i == 5)
+					if (bullets[i].setDirection(screenArea, player.getBody(), player.getLookDirection(), cooldown))
 					{
-						int pete = 1;
+						player.setCooldown(10);
+						break;
 					}
-					player.setCooldown(5);
-					break;
 				}
 			}
+			else
+			{
+				player.setCooldown(player.getCooldown() - 1);
+			}
 		}
-	}
-	else
-	{
-		player.setCooldown(player.getCooldown() - 1);
-	}
-	
-
+			
 	for (int i = 0; i < MAX_BULLETS; i++)
 	{
 		bullets[i].move(screenArea, player.getBody(), player.getLookDirection());
@@ -213,7 +206,7 @@ void Game::render()
 	{
 		m_window.draw(enemies[i].getBody());
 	}
-	for (int i = 0; i < MAX_ENEMIES; i++)
+	for (int i = 0; i < MAX_BULLETS; i++)
 	{
 		if (bullets[i].getStatus())
 		{
