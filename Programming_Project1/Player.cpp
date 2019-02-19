@@ -18,8 +18,13 @@ void Player::setUpPlayer()
 	playerLookDirection = sf::Vector2f{ 0.0f, -5.0f };
 	playerVelocity = sf::Vector2f{ 0.0, 0.0 };
 	m_playerHealth = 1000;
-	m_playerStartPoistion = sf::Vector2f{ 350.0f, 530.0f };
+	m_playerStartPoistion = sf::Vector2f{ 365.0f, 500.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
+}
+
+void Player::setUpHelpPlayer(sf::Vector2f t_playerPoistion)
+{
+	m_playerSprite.setPosition(t_playerPoistion);
 }
 
 void Player::loadSpriteAndTexture()

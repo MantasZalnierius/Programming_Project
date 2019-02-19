@@ -23,7 +23,7 @@ public:
 	void		setUpEnemy();
 	void		loadSpriteAndTexture();
 	void		move();
-	void		boundaryCollision();
+	void		setUpEnemyHelp(sf::Vector2f t_enemypoistion);
 	sf::Sprite	getBody();
 };
 

@@ -57,9 +57,9 @@ void Enemy::move()
 		m_enemySpeedY *= -1;
 	}
 }
-
-void Enemy::boundaryCollision()
+void Enemy::setUpEnemyHelp(sf::Vector2f t_enemyPoistion)
 {
+	m_enemySprite.setPosition(t_enemyPoistion);
 }
 
 sf::Sprite Enemy::getBody()

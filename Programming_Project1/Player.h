@@ -24,6 +24,7 @@ public:
 	Player();
 	~Player();
 	void		setUpPlayer();
+	void		setUpHelpPlayer(sf::Vector2f t_playerPoistion);
 	void		loadSpriteAndTexture();
 	void		move();
 	void		boundaryCollision();
@@ -34,6 +35,7 @@ public:
 	inline void setCooldown(int t_cooldown) { cooldown = t_cooldown; }
 	inline int getCooldown() { return cooldown; }
 	inline int getHealth() { return m_playerHealth; }
+	inline void setHealth(int t_playerHealth) { m_playerHealth = t_playerHealth; }
 };
 
 #endif

@@ -52,7 +52,7 @@ bool Bullet::setDirection(sf::RectangleShape t_screenArea, sf::Sprite t_player, 
 		sprite.setPosition(t_player.getPosition().x, t_player.getPosition().y);
 		Velocities = t_playerLookDirection;
 		changeTexture(t_playerLookDirection);
-		Velocities = vectorUnitVector(t_playerLookDirection) * 15.0f;
+		Velocities = vectorUnitVector(t_playerLookDirection) * 10.0f;
 		return isActive;
 	}
 	else {

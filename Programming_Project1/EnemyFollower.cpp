@@ -60,7 +60,7 @@ void EnemyFollower::bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t
 	}
 }
 
-void EnemyFollower::setUpEnemeyFollowerPoistion(sf::Vector2f t_followerPoistion)
+void EnemyFollower::setUpEnemeyFollowerPoistionHelp(sf::Vector2f t_followerPoistion)
 {
 	m_enemyFollowerSprite.setPosition(t_followerPoistion);
 }
