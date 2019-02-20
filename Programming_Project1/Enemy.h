@@ -15,7 +15,6 @@ class Enemy
 	int m_enemySpeedX;
 	int m_enemySpeedY;
 	sf::Vector2f m_enemyStartPoistion{};
-	sf::Vector2f m_enemyScale{};
 
 public:
 	Enemy();
@@ -23,8 +22,8 @@ public:
 	void		setUpEnemy();
 	void		loadSpriteAndTexture();
 	void		move();
-	void		setUpEnemyHelp(sf::Vector2f t_enemypoistion);
-	sf::Sprite	getBody();
+	void		setUpEnemyForTheHelpScreen(sf::Vector2f t_enemypoistion);
+	inline sf::Sprite	getBody() { return m_enemySprite; }
 };
 
 

@@ -17,9 +17,10 @@ void Player::setUpPlayer()
 	m_playerIsAlive = true;
 	playerLookDirection = sf::Vector2f{ 0.0f, -5.0f };
 	playerVelocity = sf::Vector2f{ 0.0, 0.0 };
-	m_playerHealth = 1000;
+	m_playerHealth = 100;
 	m_playerStartPoistion = sf::Vector2f{ 365.0f, 500.0f };
 	m_playerSprite.setPosition(m_playerStartPoistion);
+	immunityFrameCooldown = 0;
 }
 
 void Player::setUpHelpPlayer(sf::Vector2f t_playerPoistion)
@@ -118,30 +119,57 @@ void Player::boundaryCollision()
 
 void Player::enemyFollowerCollision(sf::Sprite t_enemyFollower)
 {
-	if (m_playerSprite.getGlobalBounds().intersects(t_enemyFollower.getGlobalBounds()))
+	if (immunityFrameCooldown <= 1)
 	{
-		if (m_playerHealth > 0)
+		m_playerSprite.setColor(sf::Color::White);
+	}
+	if (immunityFrameCooldown <= 0)
+	{
+		if (m_playerSprite.getGlobalBounds().intersects(t_enemyFollower.getGlobalBounds()))
 		{
-			m_playerHealth--;
+			if (m_playerHealth > 0)
+			{
+				m_playerHealth -= 2;
+				m_playerSprite.setColor(sf::Color::Red);
+				immunityFrameCooldown = 400;
+			}
+			else
+			{
+				m_playerHealth = 0;
+			}
 		}
-		else
-		{
-			m_playerHealth = 0;
-		}
+	}
+	else
+	{
+		immunityFrameCooldown--;
 	}
 }
 
 void Player::enemyCollision(sf::Sprite t_enemy)
 {
-	if (m_playerSprite.getGlobalBounds().intersects(t_enemy.getGlobalBounds()))
+	if (immunityFrameCooldown <= 140)
 	{
-		if (m_playerHealth > 0)
+			m_playerSprite.setColor(sf::Color::White);
+	}
+	if (immunityFrameCooldown <= 0)
+	{
+		if (m_playerSprite.getGlobalBounds().intersects(t_enemy.getGlobalBounds()))
 		{
-			m_playerHealth--;
-		}
-		else
-		{
-			m_playerHealth = 0;
+			if (m_playerHealth > 0)
+			{
+				m_playerHealth--;
+				m_playerSprite.setColor(sf::Color::Red);
+				immunityFrameCooldown = 250;
+			}
+			else
+			{
+				m_playerHealth = 0;
+			}
 		}
 	}
+	else
+	{
+		immunityFrameCooldown--;
+	}
+	
 }

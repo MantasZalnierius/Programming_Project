@@ -17,6 +17,7 @@ class EnemyFollower
 	bool m_enemyFollowerIsAlive;
 	int m_enemyFollowerSpeedX;
 	int m_enemyFollowerSpeedY;
+	double speed;
 	sf::Vector2f m_enemyFollowerStartPoistion{};
 	sf::Vector2f m_enemyFollowerScale{};
 	sf::Vector2f distanceLine{};
@@ -33,6 +34,7 @@ public:
 	void		setUpEnemeyFollowerPoistionHelp(sf::Vector2f t_followerPoistion1);
 	inline sf::Sprite	getBody() { return m_enemyFollowerSprite; }
 	inline int			getHealth() { return m_enemyFollowerHealth; }
+	void collision();
 };
 
 

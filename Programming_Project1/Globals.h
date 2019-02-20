@@ -9,6 +9,7 @@ const int static NORTH = 3; // direction north
 const int static SOUTH = 4;
 const int static MAX_ENEMIES = 4;
 const int static MAX_BULLETS = 15;
+const int static MAX_SPEED = 2.5;
 
 const float SCREEN_WIDTH = 800;   // the size of the screen in pixels used in the game
 const float SCREEN_HEIGHT = 600;

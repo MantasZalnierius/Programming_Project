@@ -15,6 +15,7 @@ class Player
 	int m_playerHealth;
 	bool m_playerIsAlive;
 	int cooldown;
+	int immunityFrameCooldown;
 	sf::Vector2f playerVelocity{};
 	sf::Vector2f playerLookDirection{};
 	sf::Vector2f m_playerStartPoistion{};
