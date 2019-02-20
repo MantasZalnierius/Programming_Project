@@ -11,6 +11,16 @@
 #include "EnemyFollower.h"
 #include "MyVector2.h"
 #include "Bullet.h"
+#include <string>
+
+enum class GameStates
+{
+	MainMenu,
+	Help,
+	Exit,
+	GamePlay,
+	GameOver
+};
 
 class Game
 {
@@ -18,14 +28,6 @@ class Game
 
 	// put your game objects here eg player object and 
 	// array of enemy objects etc.
-	enum class GameStates
-	{
-		MainMenu,
-		Help,
-		Exit,
-		GamePlay,
-		GameOver
-	};
 	sf::RenderWindow m_window;
 	sf::Sprite m_backgroundSprite;
 	sf::Texture m_backgroundTexture;
@@ -67,6 +69,18 @@ class Game
 	bool changedSpeedx = false;
 	bool changedSpeedy = false;
 
+	std::string playerHealthString = "First Enemy Follower Health: " + std::to_string(enemyFollower1.getHealth());
+	std::string playerScoreString = "Player Score: " + std::to_string(m_score);
+	std::string MainMenuHelpText = "Controls: Press 2 to see the rules of the game. ";
+	std::string mainMenuStartGameString = "New Game: Press 1 to play the game. ";
+	std::string mainMenuExitString = "Exit: Press 3 to exit the game ";
+	std::string PlayerHelpString = "You Can Move the Player using the The arrow keys W, S, A and D \n You can shoot by pressing the spacebar Key ";
+	std::string EnemyFollowerHelpString = "This is a enemey follower.\n This will follow you and when he touches off you it will damage you.\n When you hit this enemy with a bullet it will damage it.\n When it loses all health it will respawn randomly on the top of the screen.\n This enemy will grant you 5 points when you destroy one of the enemy ";
+	std::string bouncingEnemyHelpString = "This is a bouncing enemy. These enemies are invincable.\n They move and bounce off the walls.\n When they collide with the player, the player will lose health.\n They will absorb bullets but won't lose any life";
+	std::string returnToMainMenuString = "Press 4 to return to Menu ";
+	std::string currnetScoreString = "Higest Score: " + std::to_string(higestScore);
+	std::string highestScoreString = "Current Score " + std::to_string(currentScore);
+
 public:	  // declaration of member functions	
 	Game(); // default constructor
 	~Game();
@@ -76,6 +90,7 @@ public:	  // declaration of member functions
 	void	run();
 	void	render();
 	void	processEvents();
+	void	SetupText(sf::Text &t_text, sf::Vector2f t_position, std::string t_textSentence);
 };
 
 #endif

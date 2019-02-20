@@ -33,6 +33,7 @@ m_exitGame{ false }
 	screenArea.setSize(sf::Vector2f{ static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT) });
 	m_score = 0;
 	cooldown = 0;
+	
 }
 
 Game::~Game()
@@ -47,99 +48,6 @@ void Game::loadContent()
 		std::cout << "error with font file file";
 	}
 
-	// set up the message string 
-	m_firstEnemyFollowerHealth.setFont(m_font);  // set the font for the text
-	m_firstEnemyFollowerHealth.setCharacterSize(24); // set the text size
-	m_firstEnemyFollowerHealth.setFillColor(sf::Color::White); // set the text colour
-	m_firstEnemyFollowerHealth.setPosition(0, 0);  // its position on the screen
-	m_firstEnemyFollowerHealth.setString("First Enemy Follower Health: " + std::to_string(enemyFollower1.getHealth()));
-
-	m_playerHealth.setFont(m_font);  // set the font for the text
-	m_playerHealth.setCharacterSize(24); // set the text size
-	m_playerHealth.setFillColor(sf::Color::White); // set the text colour
-	m_playerHealth.setPosition(0, 500);  // its position on the screen
-	m_playerHealth.setString("Player Health: " + std::to_string(player.getHealth()));
-
-	m_playerScore.setFont(m_font);  // set the font for the text
-	m_playerScore.setCharacterSize(24); // set the text size
-	m_playerScore.setFillColor(sf::Color::White); // set the text colour
-	m_playerScore.setPosition(0, 350);  // its position on the screen
-	m_playerScore.setString("Player Score: " + std::to_string(m_score));
-
-	m_secondEnemyFollowerHealth.setFont(m_font);  // set the font for the text
-	m_secondEnemyFollowerHealth.setCharacterSize(24); // set the text size
-	m_secondEnemyFollowerHealth.setFillColor(sf::Color::White); // set the text colour
-	m_secondEnemyFollowerHealth.setPosition(0, 150);  // its position on the screen
-	m_secondEnemyFollowerHealth.setString("Second Enemy Follower Health: " + std::to_string(enemyFollower2.getHealth()));
-
-	m_Gameplay.setFont(m_font);  // set the font for the text
-	m_Gameplay.setCharacterSize(24); // set the text size
-	m_Gameplay.setFillColor(sf::Color::White); // set the text colour
-	m_Gameplay.setPosition(250, 150);  // its position on the screen
-	m_Gameplay.setString("New Game: Press 1 to play the game. ");
-
-	m_help.setFont(m_font);  // set the font for the text
-	m_help.setCharacterSize(24); // set the text size
-	m_help.setFillColor(sf::Color::White); // set the text colour
-	m_help.setPosition(250, 300);  // its position on the screen
-	m_help.setString("Controls: Press 2 to see the rules of the game. ");
-
-	m_exit.setFont(m_font);  // set the font for the text
-	m_exit.setCharacterSize(24); // set the text size
-	m_exit.setFillColor(sf::Color::White); // set the text colour
-	m_exit.setPosition(250, 450);  // its position on the screen
-	m_exit.setString("Exit: Press 3 to exit the game ");
-
-	m_GameObjectiveHelpText.setFont(m_font);  // set the font for the text
-	m_GameObjectiveHelpText.setCharacterSize(24); // set the text size
-	m_GameObjectiveHelpText.setFillColor(sf::Color::White); // set the text colour
-	m_GameObjectiveHelpText.setPosition(250, 450);  // its position on the screen
-	m_GameObjectiveHelpText.setString("Exit: Press 3 to exit the game ");
-
-	m_playerHelpText.setFont(m_font);  // set the font for the text
-	m_playerHelpText.setCharacterSize(24); // set the text size
-	m_playerHelpText.setFillColor(sf::Color::White); // set the text colour
-	m_playerHelpText.setPosition(160, 100);  // its position on the screen
-	m_playerHelpText.setString("You Can Move the Player using the The arrow keys W, S, A and D \n You can shoot by pressing the spacebar Key ");
-
-	m_enemyFollowerHelpText.setFont(m_font);  // set the font for the text
-	m_enemyFollowerHelpText.setCharacterSize(24); // set the text size
-	m_enemyFollowerHelpText.setFillColor(sf::Color::White); // set the text colour
-	m_enemyFollowerHelpText.setPosition(120, 200);  // its position on the screen
-	m_enemyFollowerHelpText.setString("This is a enemey follower.\n This will follow you and when he touches off you it will damage you.\n When you hit this enemy with a bullet it will damage it.\n When it loses all health it will respawn randomly on the top of the screen.\n This enemy will grant you 5 points when you destroy one of the enemy ");
-
-	m_bouncingEenemyHelpText.setFont(m_font);  // set the font for the text
-	m_bouncingEenemyHelpText.setCharacterSize(24); // set the text size
-	m_bouncingEenemyHelpText.setFillColor(sf::Color::White); // set the text colour
-	m_bouncingEenemyHelpText.setPosition(130, 400);  // its position on the screen
-	m_bouncingEenemyHelpText.setString("This is a bouncing enemy. These enemies are invincable.\n They move and bounce off the walls.\n When they collide with the player, the player will lose health.\n They will absorb bullets but won't lose any life");
-
-	m_HelpText.setFont(m_font);  // set the font for the text
-	m_HelpText.setCharacterSize(24); // set the text size
-	m_HelpText.setFillColor(sf::Color::White); // set the text colour
-	m_HelpText.setPosition(290, 530);  // its position on the screen
-	m_HelpText.setString("Press 4 to return to Menu ");
-
-	m_highestScore.setFont(m_font);  // set the font for the text
-	m_highestScore.setCharacterSize(24); // set the text size
-	m_highestScore.setFillColor(sf::Color::White); // set the text colour
-	m_highestScore.setPosition(250, 150);  // its position on the screen
-	m_highestScore.setString("Higest Score: " + std::to_string(higestScore));
-
-	m_currentScore.setFont(m_font);  // set the font for the text
-	m_currentScore.setCharacterSize(24); // set the text size
-	m_currentScore.setFillColor(sf::Color::White); // set the text colour
-	m_currentScore.setPosition(250, 300);  // its position on the screen
-	m_currentScore.setString("Current Score " + std::to_string(currentScore));
-
-	m_gameOverText.setFont(m_font);  // set the font for the text
-	m_gameOverText.setCharacterSize(24); // set the text size
-	m_gameOverText.setFillColor(sf::Color::White); // set the text colour
-	m_gameOverText.setPosition(250, 450);  // its position on the screen
-	m_gameOverText.setString("Press 5 to go back to the main menu ");
-
-
-
 	if (!m_backgroundTexture.loadFromFile("ASSETS/IMAGES/floor.png"))
 	{
 		std::cout << "Did load floor file ";
@@ -147,7 +55,31 @@ void Game::loadContent()
 
 	m_backgroundSprite.setTexture(m_backgroundTexture);
 
+	SetupText(m_playerHealth, sf::Vector2f{ 0.0f, 500.0f }, playerHealthString);
+	SetupText(m_playerScore,  sf::Vector2f{ 0.0f, 350.0f }, playerScoreString);
+	SetupText(m_Gameplay,   sf::Vector2f{ 250.0f, 150.0f }, mainMenuStartGameString);
+	SetupText(m_help, sf::Vector2f{ 250.0f, 300.0f }, MainMenuHelpText);
+	SetupText(m_exit, sf::Vector2f{ 250.0f, 450.0f }, mainMenuExitString);
+	SetupText(m_GameObjectiveHelpText, sf::Vector2f{ 250.0f, 450.0f }, returnToMainMenuString);
+	SetupText(m_playerHelpText, sf::Vector2f{ 160.0f, 100.0f }, PlayerHelpString);
+	SetupText(m_enemyFollowerHelpText, sf::Vector2f{ 120.0f, 200.0f }, EnemyFollowerHelpString);
+	SetupText(m_bouncingEenemyHelpText, sf::Vector2f{ 130.0f, 400.0f }, bouncingEnemyHelpString);
+	SetupText(m_HelpText, sf::Vector2f{ 290.0f, 530.0f }, returnToMainMenuString);
+	SetupText(m_highestScore, sf::Vector2f{ 250.0f, 150.0f }, highestScoreString);
+	SetupText(m_currentScore, sf::Vector2f{ 250.0f, 300.0f }, currnetScoreString);
+	SetupText(m_gameOverText, sf::Vector2f{ 250.0f, 450.0f }, returnToMainMenuString);
 }
+
+
+void Game::SetupText(sf::Text &t_text, sf::Vector2f t_position, std::string t_textSentence)
+{
+	t_text.setFont(m_font);  // set the font for the text
+	t_text.setCharacterSize(24); // set the text size
+	t_text.setFillColor(sf::Color::White); // set the text colour
+	t_text.setPosition(t_position);  // its position on the screen
+	t_text.setString(t_textSentence);
+}
+
 
 void Game::processEvents()
 {
@@ -170,6 +102,7 @@ void Game::processEvents()
 		}
 	}
 }
+
 void Game::run()
 {
 	
