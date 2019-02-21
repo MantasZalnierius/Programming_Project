@@ -202,6 +202,8 @@ void Game::update(sf::Time t_deltaTime)
 
 void Game::updateGamePlayScreen()
 {
+	std::cout << enemyFollower1.getHealth() << std::endl;
+	std::cout << enemyFollower2.getHealth() << std::endl;
 	if (GameScreen == GameStates::GamePlay)
 	{
 		m_playerHealth.setPosition(player.getBody().getPosition().x - 10, player.getBody().getPosition().y - 20);
@@ -270,10 +272,13 @@ void Game::updateGamePlayScreen()
 
 		for (int i = 0; i < MAX_BULLETS; i++)
 		{
-			enemyFollower1.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
-			enemyFollower2.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
-			bullets[i].enemyFollowerCollision(enemyFollower1.getBody());
-			bullets[i].enemyFollowerCollision(enemyFollower2.getBody());
+			if (bullets[i].getStatus())
+			{
+				enemyFollower1.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
+				enemyFollower2.bulletCollision(bullets[i].getBody(), bullets[i].getStatus(), m_score);
+				bullets[i].enemyFollowerCollision(enemyFollower1.getBody());
+				bullets[i].enemyFollowerCollision(enemyFollower2.getBody());
+			}
 		}
 
 		for (int i = 0; i < MAX_BULLETS; i++)
@@ -294,6 +299,7 @@ void Game::updateMainMenuScreen()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
 			GameScreen = GameStates::GamePlay;
+			mainMenuMusic.stop();
 			GamePlayMusic.play();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
@@ -383,7 +389,7 @@ void Game::updateGameOverScreen()
 			}
 			enemyFollower1.setUpEnemyFollower();
 			enemyFollower2.setUpEnemyFollower();
-
+			GamePlayMusic.stop();
 			mainMenuMusic.play();
 		}
 	}

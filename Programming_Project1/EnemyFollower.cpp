@@ -44,6 +44,8 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 	if (m_enemyFollowerSprite.getGlobalBounds().intersects(t_playerSprite.getGlobalBounds()))
 	{
 		m_enemyFollowerSprite.setPosition(sf::Vector2f{(static_cast<float>((rand() % 800) + 1)), -300.0f});
+		setUpEnemyFollower();
+
 		if (speed < MAX_SPEED)
 		{
 			speed += 0.12;
@@ -53,7 +55,7 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 
 void EnemyFollower::bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t_playerScore)
 {
-	if (t_bullet.getGlobalBounds().intersects(m_enemyFollowerSprite.getGlobalBounds()) && t_isActive)
+	if (t_bullet.getGlobalBounds().intersects(m_enemyFollowerSprite.getGlobalBounds()))
 	{
 		m_enemyFollowerSprite.move(((rand() % 5) - 5), (rand() % 5) + 1);
 		m_enemyFollowerHealth--;
