@@ -1,17 +1,19 @@
 #ifndef GAME
 #define GAME
 
-#include "Player.h"   // include Player header file
 #include "SFML/Graphics.hpp" 
+#include "SFML\Audio.hpp"
+#include <string>
 #include <iostream>
 #include <cstdlib>  // include support for randomizing
 #include <ctime>   // supports ctime function
+#include "Player.h"   // include Player header file
 #include "Globals.h"   // include Global header file
 #include "Enemy.h"
 #include "EnemyFollower.h"
 #include "MyVector2.h"
 #include "Bullet.h"
-#include <string>
+
 
 enum class GameStates
 {
@@ -31,6 +33,10 @@ class Game
 	sf::RenderWindow m_window;
 	sf::Sprite m_backgroundSprite;
 	sf::Texture m_backgroundTexture;
+	sf::Sound deathSound;
+	sf::SoundBuffer deathSoundBuffer;
+	sf::Music mainMenuMusic;
+	sf::Music GamePlayMusic;
 	Player player;
 	Player PlayerSpriteForTheHelpScreen;
 	Enemy enemies[MAX_ENEMIES];
@@ -60,11 +66,12 @@ class Game
 	GameStates GameScreen = GameStates::MainMenu;
 
 	int cooldown;
-	bool m_exitGame;
 	int m_score;
 	int higestScore;
 	int currentScore;
 	int speedOfText;
+	int counter = 0;
+	bool m_exitGame;
 
 	double ySpeedForNewGameText;
 	double ySpeedForHelpText;
@@ -103,6 +110,7 @@ public:	  // declaration of member functions
 	void	updateMainMenuScreen();
 	void	updateHelpScreen();
 	void	updateGameOverScreen();
+	void	setUpSoundsAndMusic();
 };
 
 #endif

@@ -4,6 +4,7 @@ Bullet::Bullet()
 {
 	loadSpriteAndTexture();
 	setUpBullet();
+	setUpSound();
 }
 
 Bullet::~Bullet()
@@ -43,6 +44,35 @@ void Bullet::loadSpriteAndTexture()
 	sprite.setTexture(textureUp);
 }
 
+void Bullet::setUpSound()
+{
+	if (!bulletSoundBuffer.loadFromFile("ASSETS/SOUND/gun-gunshot-02.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+	bulletSound.setBuffer(bulletSoundBuffer);
+
+	if (!bulletHitWallSoundBuffer.loadFromFile("ASSETS/SOUND/zapsplat_impact_head_slam_against_table_13494.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+	bulletHitWallSound.setBuffer(bulletHitWallSoundBuffer);
+
+	if (!bulletHitSoundBuffer.loadFromFile("ASSETS/SOUND/zapsplat_impact_thud_light_squelch_17502.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+
+	bulletHitSound.setBuffer(bulletHitSoundBuffer);
+
+	if (!bulletHitOtherEenemyBuffer.loadFromFile("ASSETS/SOUND/zapsplat_impact_head_hit_ground_thump_17498 (1).wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+
+	bulletHitOtherEenemy.setBuffer(bulletHitOtherEenemyBuffer);
+}
+
 bool Bullet::setDirection( sf::Sprite t_player, sf::Vector2f t_playerLookDirection)
 {
 	if (!isActive)
@@ -52,6 +82,7 @@ bool Bullet::setDirection( sf::Sprite t_player, sf::Vector2f t_playerLookDirecti
 		Velocities = t_playerLookDirection;
 		changeTexture(t_playerLookDirection);
 		Velocities = vectorUnitVector(t_playerLookDirection) * 10.0f;
+		bulletSound.play();
 		return isActive;
 	}
 	else 
@@ -69,21 +100,25 @@ void Bullet::move()
 		{
 			isActive = false;
 			Velocities = sf::Vector2f{ 0.0f, 0.0f };
+			bulletHitWallSound.play();
 		}
 		else if (sprite.getPosition().x < 40)
 		{
 			isActive = false;
 			Velocities = sf::Vector2f{ 0.0f, 0.0f };
+			bulletHitWallSound.play();
 		}
 		else if (sprite.getPosition().y < 35)
 		{
 			isActive = false;
 			Velocities = sf::Vector2f{ 0.0f, 0.0f };
+			bulletHitWallSound.play();
 		}
 		else if (sprite.getPosition().y > 500)
 		{
 			isActive = false;
 			Velocities = sf::Vector2f{ 0.0f, 0.0f };
+			bulletHitWallSound.play();
 		}
 	}
 }
@@ -114,6 +149,7 @@ void Bullet::enemyFollowerCollision(sf::Sprite t_enemyFollower)
 	{
 		sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
 		isActive = false;
+		bulletHitSound.play();
 	}
 }
 
@@ -121,7 +157,8 @@ void Bullet::enemyCollision(sf::Sprite t_enemy)
 {
 	if (sprite.getGlobalBounds().intersects(t_enemy.getGlobalBounds()))
 	{
-		sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
 		isActive = false;
+		sprite.setPosition(sf::Vector2f{ -2000.0f, -2000.0f });
+		bulletHitOtherEenemy.play();
 	}
 }

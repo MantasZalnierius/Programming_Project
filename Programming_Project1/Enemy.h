@@ -10,11 +10,12 @@ class Enemy
 	// private data members
 	sf::Texture enemyTexture;
 	sf::Sprite m_enemySprite;
+	sf::Vector2f m_enemyStartPoistion{};
 	int m_enemyHealth;
-	bool m_enemyIsAlive;
 	int m_enemySpeedX;
 	int m_enemySpeedY;
-	sf::Vector2f m_enemyStartPoistion{};
+	bool m_enemyIsAlive;
+
 
 public:
 	Enemy();

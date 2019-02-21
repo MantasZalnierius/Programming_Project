@@ -23,7 +23,7 @@ void Player::setUpPlayer()
 	immunityFrameCooldown = 0;
 }
 
-void Player::setUpHelpPlayer(sf::Vector2f t_playerPoistion)
+void Player::setUpPlayerForTheHelpScreen(sf::Vector2f t_playerPoistion)
 {
 	m_playerSprite.setPosition(t_playerPoistion);
 }
@@ -131,7 +131,7 @@ void Player::enemyFollowerCollision(sf::Sprite t_enemyFollower)
 			{
 				m_playerHealth -= 2;
 				m_playerSprite.setColor(sf::Color::Red);
-				immunityFrameCooldown = 400;
+				immunityFrameCooldown = 200;
 			}
 			else
 			{
@@ -147,7 +147,7 @@ void Player::enemyFollowerCollision(sf::Sprite t_enemyFollower)
 
 void Player::enemyCollision(sf::Sprite t_enemy)
 {
-	if (immunityFrameCooldown <= 140)
+	if (immunityFrameCooldown <= 200)
 	{
 			m_playerSprite.setColor(sf::Color::White);
 	}
@@ -159,7 +159,7 @@ void Player::enemyCollision(sf::Sprite t_enemy)
 			{
 				m_playerHealth--;
 				m_playerSprite.setColor(sf::Color::Red);
-				immunityFrameCooldown = 250;
+				immunityFrameCooldown = 400;
 			}
 			else
 			{
@@ -171,5 +171,4 @@ void Player::enemyCollision(sf::Sprite t_enemy)
 	{
 		immunityFrameCooldown--;
 	}
-	
 }

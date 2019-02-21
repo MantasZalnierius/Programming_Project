@@ -12,30 +12,30 @@ class Player
 	sf::Texture m_playerTextureLeft;
 	sf::Texture m_playerTextureRight;
 	sf::Sprite m_playerSprite;
-	int m_playerHealth;
-	bool m_playerIsAlive;
-	int cooldown;
-	int immunityFrameCooldown;
 	sf::Vector2f playerVelocity{};
 	sf::Vector2f playerLookDirection{};
 	sf::Vector2f m_playerStartPoistion{};
-	sf::Vector2f m_playerScale{};
+	int m_playerHealth;
+	int cooldown;
+	int immunityFrameCooldown;
+	bool m_playerIsAlive;
+
 
 public:
 	Player();
 	~Player();
 	void		setUpPlayer();
-	void		setUpHelpPlayer(sf::Vector2f t_playerPoistion);
 	void		loadSpriteAndTexture();
 	void		move();
 	void		boundaryCollision();
+	void		setUpPlayerForTheHelpScreen(sf::Vector2f t_playerPoistion);
 	void		enemyFollowerCollision(sf::Sprite t_enemyFollower);
 	void		enemyCollision(sf::Sprite t_enemy);
-	inline sf::Sprite	getBody() { return m_playerSprite; }
-	inline sf::Vector2f getLookDirection() { return playerLookDirection; }
+	inline		sf::Sprite	getBody() { return m_playerSprite; }
+	inline		sf::Vector2f getLookDirection() { return playerLookDirection; }
 	inline void setCooldown(int t_cooldown) { cooldown = t_cooldown; }
-	inline int getCooldown() { return cooldown; }
-	inline int getHealth() { return m_playerHealth; }
+	inline int  getCooldown() { return cooldown; }
+	inline int  getHealth() { return m_playerHealth; }
 	inline void setHealth(int t_playerHealth) { m_playerHealth = t_playerHealth; }
 };
 

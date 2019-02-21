@@ -31,7 +31,7 @@ m_exitGame{ false }
 // Default constructor
 {
 	setUpStrings();
-
+	setUpSoundsAndMusic();
 	ySpeedForNewGameText = -0.5;
 	ySpeedForHelpText = -0.5;
 	ySpeedForExitText = -0.5;
@@ -62,6 +62,30 @@ void Game::setUpStrings()
 	returnToMainMenuString = "Press 4 to return to Menu ";
 	currnetScoreString = "Higest Score: " + std::to_string(higestScore);
 	highestScoreString = "Current Score " + std::to_string(currentScore);
+}
+
+void Game::setUpSoundsAndMusic()
+{
+	if (!deathSoundBuffer.loadFromFile("ASSETS/SOUND/Hl2_Rebel-Ragdoll485-573931361.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+
+	deathSound.setBuffer(deathSoundBuffer);
+
+	if (!GamePlayMusic.openFromFile("ASSETS/MUSIC/Battle Music.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+	GamePlayMusic.setLoop(true); // This sets the loop to true.
+	GamePlayMusic.setVolume(10); // This sets the voulme.
+
+	if (!mainMenuMusic.openFromFile("ASSETS/MUSIC/The Elder Scrolls III - Morrowind - Main.wav"))
+	{
+		std::cout << "error with the sound file";
+	}
+	mainMenuMusic.setLoop(true); // This sets the loop to true.
+	mainMenuMusic.setVolume(10); // This sets the voulme.
 }
 
 Game::~Game()
@@ -138,10 +162,11 @@ void Game::run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero; // This lets the Time object equal to Zero.
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 
-	PlayerSpriteForTheHelpScreen.setUpHelpPlayer(sf::Vector2f{ 100.0f, 100.0f });
+	PlayerSpriteForTheHelpScreen.setUpPlayerForTheHelpScreen(sf::Vector2f{ 100.0f, 100.0f });
 	enemyFollowerHelp.setUpEnemeyFollowerPoistionHelp(sf::Vector2f{ 50.0f, 200.0f });
 	enemiesHelp.setUpEnemyForTheHelpScreen(sf::Vector2f{ 70.0f, 400.0f });
 	cooldown = player.getCooldown();
+	mainMenuMusic.play();
 
 	while (m_window.isOpen())
 	{
@@ -227,6 +252,7 @@ void Game::updateGamePlayScreen()
 
 		if (player.getHealth() <= 0)
 		{
+			deathSound.play();
 			GameScreen = GameStates::GameOver;
 			currentScore = m_score;
 			if (currentScore > higestScore)
@@ -268,10 +294,12 @@ void Game::updateMainMenuScreen()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
 			GameScreen = GameStates::GamePlay;
+			GamePlayMusic.play();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
 			GameScreen = GameStates::Help;
+			mainMenuMusic.play();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
@@ -329,6 +357,7 @@ void Game::updateHelpScreen()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
 			GameScreen = GameStates::MainMenu;
+			mainMenuMusic.play();
 		}
 	}
 }
@@ -354,6 +383,8 @@ void Game::updateGameOverScreen()
 			}
 			enemyFollower1.setUpEnemyFollower();
 			enemyFollower2.setUpEnemyFollower();
+
+			mainMenuMusic.play();
 		}
 	}
 }

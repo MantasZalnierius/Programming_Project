@@ -28,7 +28,6 @@ void EnemyFollower::loadSpriteAndTexture()
 	{
 		std::cout << "Enemy follower texture not loaded correctly ";
 	}
-
 	m_enemyFollowerSprite.setTexture(enemyFollowerTexture);
 }
 
@@ -37,6 +36,7 @@ void EnemyFollower::move(sf::Vector2f t_playerPoistion)
 	distanceLine =  t_playerPoistion - m_enemyFollowerSprite.getPosition();
 	unitVector = vectorUnitVector(distanceLine);
 	m_enemyFollowerSprite.move((unitVector.x * speed), (unitVector.y * speed));
+
 }
 
 void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
@@ -48,7 +48,6 @@ void EnemyFollower::playerCollision(sf::Sprite t_playerSprite)
 		{
 			speed += 0.12;
 		}
-
 	}
 }
 
@@ -73,8 +72,4 @@ void EnemyFollower::bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t
 void EnemyFollower::setUpEnemeyFollowerPoistionHelp(sf::Vector2f t_followerPoistion)
 {
 	m_enemyFollowerSprite.setPosition(t_followerPoistion);
-}
-
-void EnemyFollower::collision()
-{
 }
