@@ -30,8 +30,13 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 m_exitGame{ false }
 // Default constructor
 {
+	setUpGame();
 	setUpStrings();
 	setUpSoundsAndMusic();
+}
+
+void Game::setUpGame()
+{
 	ySpeedForNewGameText = -0.5;
 	ySpeedForHelpText = -0.5;
 	ySpeedForExitText = -0.5;
@@ -202,8 +207,6 @@ void Game::update(sf::Time t_deltaTime)
 
 void Game::updateGamePlayScreen()
 {
-	std::cout << enemyFollower1.getHealth() << std::endl;
-	std::cout << enemyFollower2.getHealth() << std::endl;
 	if (GameScreen == GameStates::GamePlay)
 	{
 		m_playerHealth.setPosition(player.getBody().getPosition().x - 10, player.getBody().getPosition().y - 20);

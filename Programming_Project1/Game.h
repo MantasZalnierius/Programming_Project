@@ -111,6 +111,7 @@ public:	  // declaration of member functions
 	void	updateHelpScreen();
 	void	updateGameOverScreen();
 	void	setUpSoundsAndMusic();
+	void	setUpGame();
 };
 
 #endif
