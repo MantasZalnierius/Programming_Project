@@ -14,6 +14,7 @@ class Enemy
 	int m_enemyHealth;
 	int m_enemySpeedX;
 	int m_enemySpeedY;
+	double speed;
 	bool m_enemyIsAlive;
 
 

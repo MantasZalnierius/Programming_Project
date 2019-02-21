@@ -73,14 +73,14 @@ void Game::setUpSoundsAndMusic()
 
 	deathSound.setBuffer(deathSoundBuffer);
 
-	if (!GamePlayMusic.openFromFile("ASSETS/MUSIC/Battle Music.wav"))
+	if (!GamePlayMusic.openFromFile("ASSETS/MUSIC/Battle Music.ogg"))
 	{
 		std::cout << "error with the sound file";
 	}
 	GamePlayMusic.setLoop(true); // This sets the loop to true.
 	GamePlayMusic.setVolume(10); // This sets the voulme.
 
-	if (!mainMenuMusic.openFromFile("ASSETS/MUSIC/The Elder Scrolls III - Morrowind - Main.wav"))
+	if (!mainMenuMusic.openFromFile("ASSETS/MUSIC/The Elder Scrolls III - Morrowind - Main.ogg"))
 	{
 		std::cout << "error with the sound file";
 	}

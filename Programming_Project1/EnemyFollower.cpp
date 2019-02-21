@@ -58,6 +58,7 @@ void EnemyFollower::bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t
 	if (t_bullet.getGlobalBounds().intersects(m_enemyFollowerSprite.getGlobalBounds()))
 	{
 		m_enemyFollowerSprite.move(((rand() % 5) - 5), (rand() % 5) + 1);
+
 		m_enemyFollowerHealth--;
 		if (m_enemyFollowerHealth <= 0)
 		{

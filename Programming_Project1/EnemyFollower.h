@@ -17,11 +17,10 @@ class EnemyFollower
 	sf::Vector2f distanceLine{};
 	sf::Vector2f unitVector{};
 	int m_enemyFollowerHealth;
-	int counter = 0;
 	int m_enemyFollowerSpeedX;
 	int m_enemyFollowerSpeedY;
-	double speed;
 	bool m_enemyFollowerIsAlive;
+	double speed;
 public:
 	EnemyFollower();
 	~EnemyFollower();
@@ -31,7 +30,6 @@ public:
 	void		playerCollision(sf::Sprite t_playerPosition);
 	void		bulletCollision(sf::Sprite t_bullet, bool t_isActive, int &t_playerScore);
 	void		setUpEnemeyFollowerPoistionHelp(sf::Vector2f t_followerPoistion1);
-	void		collision();
 	inline sf::Sprite	getBody() { return m_enemyFollowerSprite; }
 	inline int			getHealth() { return m_enemyFollowerHealth; }
 	

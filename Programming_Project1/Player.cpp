@@ -57,25 +57,25 @@ void Player::move()
 {
 	playerVelocity = sf::Vector2f{ 0.0f, 0.0f };
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		playerVelocity.x = -5.0f;
 		m_playerSprite.setTexture(m_playerTextureLeft);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		playerVelocity.x = 5.0f;
 		m_playerSprite.setTexture(m_playerTextureRight);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		playerVelocity.y = -5.0f;
 		m_playerSprite.setTexture(m_playerTextureUp);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		playerVelocity.y = 5.0f;
 		m_playerSprite.setTexture(m_playerTextureDown);

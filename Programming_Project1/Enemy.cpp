@@ -15,7 +15,6 @@ void Enemy::setUpEnemy()
 	m_enemyIsAlive = true;
 	m_enemySpeedX = (rand() % 3) - 3;
 	m_enemySpeedY = (rand() % 3) + 1;
-	m_enemyHealth = 5;
 }
 
 void Enemy::loadSpriteAndTexture()
