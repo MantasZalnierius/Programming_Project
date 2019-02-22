@@ -27,19 +27,19 @@ class Bullet
 	bool isActive; // This repersents if the bullet is active.
 
 public:
-	Bullet(); // This is the default constructor for the bullet class
-	~Bullet(); // This is the default destructor for the bullet class
-	void setUpBullet(); // This 
-	void loadSpriteAndTexture();
-	bool setDirection(sf::Sprite t_player, sf::Vector2f t_playerLookDirection);
-	void move();
-	void setUpSound();
-	void changeTexture(sf::Vector2f t_playerLookDirection);
-	void enemyFollowerCollision(sf::Sprite t_enemyFollower);
-	void enemyCollision(sf::Sprite t_enemy);
-	inline sf::Sprite getBody() { return sprite; }
-	inline sf::Vector2f getPosition() { return position; }
-	inline bool getStatus()  {  return isActive; }
+	Bullet(); // This is the default constructor for the bullet class.
+	~Bullet(); // This is the default destructor for the bullet class.
+	void setUpBullet(); // This member function sets up the bullet.
+	void loadSpriteAndTexture(); // This member function Loads the sprite and texture of a bullet
+	bool setDirection(sf::Sprite t_player, sf::Vector2f t_playerLookDirection); // This member function sets the direction of the bullet.
+	void move(); // This member function moves the bullets.
+	void setUpSound(); // This member function sets up the sounds of the bullets
+	void changeTexture(sf::Vector2f t_playerLookDirection); // This member function changes the texture of the bullets.
+	void enemyFollowerCollision(sf::Sprite t_enemyFollower); // This member function checks collision between a bullet an enemy follower.
+	void enemyCollision(sf::Sprite t_enemy); // This member function checks for the collision between the bouncing enemies and the bullet 
+	inline sf::Sprite getBody() { return sprite; } // This member function gets the sprite of the bullet.
+	inline sf::Vector2f getPosition() { return position; } // This member function gets the poistion of the bullet.
+	inline bool getStatus()  {  return isActive; } // This member function gets the status of the bullet
 };
 
 #endif
