@@ -20,7 +20,7 @@
 int main()
 {
 	srand(time(NULL)); // This is the random seed.
-	Game game;
+	Game game; // This makes an instance of the game class.
 	game.loadContent();
 	game.run();
 	return 0;
@@ -30,114 +30,129 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 m_exitGame{ false }
 // Default constructor
 {
+	// This sets up the game.
 	setUpGame();
 	setUpStrings();
 	setUpSoundsAndMusic();
-}
-
-void Game::setUpGame()
-{
-	ySpeedForNewGameText = -0.5;
-	ySpeedForHelpText = -0.5;
-	ySpeedForExitText = -0.5;
-
-	changedSpeedOnNewGameText = false;
-	changedSpeedOnHelpText = false;
-	changedSpeedOnExitText = false;
-
-	speedOfText = -1;
-
-	higestScore = 0;
-	currentScore = 0;
-
-	m_score = 0;
-	cooldown = 0;
-}
-
-void Game::setUpStrings()
-{
-	playerHealthString = "Health: " + std::to_string(player.getHealth());
-	playerScoreString = "Player Score: " + std::to_string(m_score);
-	MainMenuHelpText = "Controls: Press 2 to see the rules of the game. ";
-	mainMenuStartGameString = "New Game: Press 1 to play the game. ";
-	mainMenuExitString = "Exit: Press 3 to exit the game ";
-	PlayerHelpString = "You Can Move the Player using the The arrow keys W, S, A and D \n You can shoot by pressing the spacebar Key ";
-	EnemyFollowerHelpString = "This is a enemey follower.\n This will follow you and when he touches off you it will damage you.\n When you hit this enemy with a bullet it will damage it.\n When it loses all health it will respawn randomly on the top of the screen.\n This enemy will grant you 5 points when you destroy one of the enemy ";
-	bouncingEnemyHelpString = "This is a bouncing enemy. These enemies are invincable.\n They move and bounce off the walls.\n When they collide with the player, the player will lose health.\n They will absorb bullets but won't lose any life";
-	returnToMainMenuString = "Press 4 to return to Menu ";
-	currnetScoreString = "Higest Score: " + std::to_string(higestScore);
-	highestScoreString = "Current Score " + std::to_string(currentScore);
-}
-
-void Game::setUpSoundsAndMusic()
-{
-	if (!deathSoundBuffer.loadFromFile("ASSETS/SOUND/Hl2_Rebel-Ragdoll485-573931361.wav"))
-	{
-		std::cout << "error with the sound file";
-	}
-
-	deathSound.setBuffer(deathSoundBuffer);
-
-	if (!GamePlayMusic.openFromFile("ASSETS/MUSIC/Battle Music.ogg"))
-	{
-		std::cout << "error with the sound file";
-	}
-	GamePlayMusic.setLoop(true); // This sets the loop to true.
-	GamePlayMusic.setVolume(10); // This sets the voulme.
-
-	if (!mainMenuMusic.openFromFile("ASSETS/MUSIC/The Elder Scrolls III - Morrowind - Main.ogg"))
-	{
-		std::cout << "error with the sound file";
-	}
-	mainMenuMusic.setLoop(true); // This sets the loop to true.
-	mainMenuMusic.setVolume(10); // This sets the voulme.
 }
 
 Game::~Game()
 {
 }
 
+/// <summary>
+/// This sets up the game.
+/// </summary>
+void Game::setUpGame()
+{
+	m_ySpeedForNewGameText = -0.5; // This sets the speed of the new game text.
+	m_ySpeedForHelpText = -0.5; // This sets the speed of the help text.
+	m_ySpeedForExitText = -0.5; // This sets the speed of the exit text.
+
+	m_changedSpeedOnNewGameText = false; // This sets the bool to false.
+	m_changedSpeedOnHelpText = false; // This sets the bool to false.
+	m_changedSpeedOnExitText = false; // This sets the bool to false.
+
+	m_speedOfText = -1; // This sets the speed of the text.
+
+	m_higestScore = 0; // This sets the highest score.
+	m_currentScore = 0; // This sets the current score.
+
+	m_score = 0; // This sets the score of the player.
+}
+/// <summary>
+/// This sets up all the std::strings.
+/// </summary>
+void Game::setUpStrings()
+{
+	m_playerHealthString = "Health: " + std::to_string(player.getHealth()); // This sets a string.
+	m_playerScoreString = "Player Score: " + std::to_string(m_score); // This sets a string.
+	m_mainMenuHelpText = "Controls: Press 2 to see the rules of the game. "; // This sets a string.
+	m_mainMenuStartGameString = "New Game: Press 1 to play the game. "; // This sets a string.
+	m_mainMenuExitString = "Exit: Press 3 to exit the game "; // This sets a string.
+	m_playerHelpString = "You Can Move the Player using the The arrow keys W, S, A and D \n You can shoot by pressing the spacebar Key ";
+	m_enemyFollowerHelpString = "This is a enemey follower.\n This will follow you and when he touches off you it will damage you.\n When you hit this enemy with a bullet it will damage it.\n When it loses all health it will respawn randomly on the top of the screen.\n This enemy will grant you 5 points when you destroy one of the enemy "; // This sets a string.
+	m_bouncingEnemyHelpString = "This is a bouncing enemy. These enemies are invincable.\n They move and bounce off the walls.\n When they collide with the player, the player will lose health.\n They will absorb bullets but won't lose any life"; // This sets a string.
+	m_returnToMainMenuString = "Press 4 to return to Menu "; // This sets a string.
+	m_currnetScoreString = "Higest Score: " + std::to_string(m_higestScore); // This sets a string.
+	m_highestScoreString = "Current Score " + std::to_string(m_currentScore); // This sets a string.
+}
+/// <summary>
+/// This sets up the sound and music.
+/// </summary>
+void Game::setUpSoundsAndMusic()
+{
+	if (!m_deathSoundBuffer.loadFromFile("ASSETS/SOUND/Hl2_Rebel-Ragdoll485-573931361.wav"))
+	{
+		std::cout << "error with the sound file"; // This sets a sound effect.
+	}
+
+	m_deathSound.setBuffer(m_deathSoundBuffer); // This sets the sound buffer to the sound effect.
+
+	if (!m_gamePlayMusic.openFromFile("ASSETS/MUSIC/Battle Music.ogg"))
+	{
+		std::cout << "error with the sound file"; // This sets up music.
+	}
+	m_gamePlayMusic.setLoop(true); // This sets the loop to true.
+	m_gamePlayMusic.setVolume(10); // This sets the voulme.
+
+	if (!m_mainMenuMusic.openFromFile("ASSETS/MUSIC/The Elder Scrolls III - Morrowind - Main.ogg"))
+	{
+		std::cout << "error with the sound file"; // This sets up music.
+	}
+	m_mainMenuMusic.setLoop(true); // This sets the loop to true.
+	m_mainMenuMusic.setVolume(10); // This sets the voulme.
+}
+/// <summary>
+/// This loads the game.
+/// </summary>
 void Game::loadContent()
 // load the font file & setup the message
 {
 	if (!m_font.loadFromFile("ASSETS/FONTS/BebasNeue.otf"))
 	{
-		std::cout << "error with font file file";
+		std::cout << "error with font file file"; // This sets the font for the game.
 	}
 
 	if (!m_backgroundTexture.loadFromFile("ASSETS/IMAGES/floor.png"))
 	{
-		std::cout << "Did load floor file ";
+		std::cout << "Did load floor file "; // This sets up the background texture.
 	}
 
-	m_backgroundSprite.setTexture(m_backgroundTexture);
+	m_backgroundSprite.setTexture(m_backgroundTexture); // This sets the texture to the sprite.
 
-	SetupText(m_playerHealth, sf::Vector2f{ player.getBody().getPosition() }, playerHealthString);
-	SetupText(m_playerScore,  sf::Vector2f{ 50.0f, 530.0f }, playerScoreString);
-	SetupText(m_Gameplay,   sf::Vector2f{ 250.0f, 150.0f }, mainMenuStartGameString);
-	SetupText(m_help, sf::Vector2f{ 250.0f, 300.0f }, MainMenuHelpText);
-	SetupText(m_exit, sf::Vector2f{ 250.0f, 450.0f }, mainMenuExitString);
-	SetupText(m_GameObjectiveHelpText, sf::Vector2f{ 250.0f, 450.0f }, returnToMainMenuString);
-	SetupText(m_playerHelpText, sf::Vector2f{ 160.0f, 100.0f }, PlayerHelpString);
-	SetupText(m_enemyFollowerHelpText, sf::Vector2f{ 120.0f, 200.0f }, EnemyFollowerHelpString);
-	SetupText(m_bouncingEenemyHelpText, sf::Vector2f{ 130.0f, 400.0f }, bouncingEnemyHelpString);
-	SetupText(m_HelpText, sf::Vector2f{ 290.0f, 530.0f }, returnToMainMenuString);
-	SetupText(m_highestScore, sf::Vector2f{ 250.0f, 150.0f }, highestScoreString);
-	SetupText(m_currentScore, sf::Vector2f{ 250.0f, 300.0f }, currnetScoreString);
-	SetupText(m_gameOverText, sf::Vector2f{ 250.0f, 450.0f }, returnToMainMenuString);
+	SetupText(m_playerHealth, sf::Vector2f{ player.getBody().getPosition() }, m_playerHealthString);
+	SetupText(m_playerScore, sf::Vector2f{ 50.0f, 530.0f }, m_playerScoreString);
+	SetupText(m_Gameplay, sf::Vector2f{ 250.0f, 150.0f }, m_mainMenuStartGameString);
+	SetupText(m_help, sf::Vector2f{ 250.0f, 300.0f }, m_mainMenuHelpText);
+	SetupText(m_exit, sf::Vector2f{ 250.0f, 450.0f }, m_mainMenuExitString);
+	SetupText(m_returnToMainMenuText, sf::Vector2f{ 250.0f, 450.0f }, m_returnToMainMenuString);
+	SetupText(m_playerHelpText, sf::Vector2f{ 160.0f, 100.0f }, m_playerHelpString);
+	SetupText(m_enemyFollowerHelpText, sf::Vector2f{ 120.0f, 200.0f }, m_enemyFollowerHelpString);
+	SetupText(m_bouncingEenemyHelpText, sf::Vector2f{ 130.0f, 400.0f }, m_bouncingEnemyHelpString);
+	SetupText(m_HelpText, sf::Vector2f{ 290.0f, 530.0f }, m_returnToMainMenuString);
+	SetupText(m_highestScoreText, sf::Vector2f{ 250.0f, 150.0f }, m_highestScoreString);
+	SetupText(m_currentScoreText, sf::Vector2f{ 250.0f, 300.0f }, m_currnetScoreString);
+	SetupText(m_gameOverText, sf::Vector2f{ 250.0f, 450.0f }, m_returnToMainMenuString);
 	m_playerHealth.setFillColor(sf::Color::Red);
 }
-
+/// <summary>
+/// This sets the text up.
+/// </summary>
+/// <param name="t_text"></param>
+/// <param name="t_position"></param>
+/// <param name="t_textSentence"></param>
 void Game::SetupText(sf::Text &t_text, sf::Vector2f t_position, std::string t_textSentence)
 {
 	t_text.setFont(m_font);  // set the font for the text
 	t_text.setCharacterSize(24); // set the text size
 	t_text.setFillColor(sf::Color::White); // set the text colour
 	t_text.setPosition(t_position);  // its position on the screen
-	t_text.setString(t_textSentence);
+	t_text.setString(t_textSentence); // This sets the string to the text.
 }
-
-
+/// <summary>
+/// This process user created events.
+/// </summary>
 void Game::processEvents()
 {
 	sf::Event event; // This initialize's, the Event object into memory.
@@ -159,19 +174,20 @@ void Game::processEvents()
 		}
 	}
 }
-
+/// <summary>
+/// This runs the game.
+/// </summary>
 void Game::run()
 {
-	
+
 	sf::Clock clock; // This initialize's the Clock object into memory.
 	sf::Time timeSinceLastUpdate = sf::Time::Zero; // This lets the Time object equal to Zero.
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 
-	PlayerSpriteForTheHelpScreen.setUpPlayerForTheHelpScreen(sf::Vector2f{ 100.0f, 100.0f });
-	enemyFollowerHelp.setUpEnemeyFollowerPoistionHelp(sf::Vector2f{ 50.0f, 200.0f });
-	enemiesHelp.setUpEnemyForTheHelpScreen(sf::Vector2f{ 70.0f, 400.0f });
-	cooldown = player.getCooldown();
-	mainMenuMusic.play();
+	PlayerSpriteForTheHelpScreen.setUpPlayerForTheHelpScreen(sf::Vector2f{ 100.0f, 100.0f }); // This sets the position of the playersprite for the help screen.
+	enemyFollowerHelp.setUpEnemeyFollowerPoistionHelp(sf::Vector2f{ 50.0f, 200.0f }); // This sets the position of the enemy follower sprite for the help screen.
+	enemiesHelp.setUpEnemyForTheHelpScreen(sf::Vector2f{ 70.0f, 400.0f }); // This sets the position of the enemy sprite for the help screen.
+	m_mainMenuMusic.play(); // This plays the main menu music.
 
 	while (m_window.isOpen())
 	{
@@ -186,17 +202,20 @@ void Game::run()
 		render(); // as many as possible
 	}
 }
-
+/// <summary>
+/// This updates the game every 60th of a second
+/// </summary>
+/// <param name="t_deltaTime"></param>
 void Game::update(sf::Time t_deltaTime)
 {
 	if (m_exitGame)
 	{
-		m_window.close();
+		m_window.close(); // This closes the window.
 	}
 
 	if (GameScreen == GameStates::Exit)
 	{
-		m_exitGame = true;
+		m_exitGame = true; // This sets the bool to true.
 	}
 
 	updateMainMenuScreen();
@@ -204,16 +223,16 @@ void Game::update(sf::Time t_deltaTime)
 	updateGamePlayScreen();
 	updateGameOverScreen();
 }
-
+/// <summary>
+/// This updates the game play screen.
+/// </summary>
 void Game::updateGamePlayScreen()
 {
 	if (GameScreen == GameStates::GamePlay)
 	{
-		m_playerHealth.setPosition(player.getBody().getPosition().x - 10, player.getBody().getPosition().y - 20);
-		m_firstEnemyFollowerHealth.setString("Enemy Follower Health: " + std::to_string(enemyFollower1.getHealth()));
-		m_secondEnemyFollowerHealth.setString("Second Enemy Follower Health: " + std::to_string(enemyFollower2.getHealth()));
-		m_playerHealth.setString("Health: " + std::to_string(player.getHealth()));
-		m_playerScore.setString("Player Score: " + std::to_string(m_score));
+		m_playerHealth.setPosition(player.getBody().getPosition().x - 10, player.getBody().getPosition().y - 20); // This updates the player health text.
+		m_playerHealth.setString("Health: " + std::to_string(player.getHealth())); // This updates the player health text.
+		m_playerScore.setString("Player Score: " + std::to_string(m_score)); // This updates the player score text.
 	}
 
 	if (GameScreen == GameStates::GamePlay)
@@ -244,26 +263,26 @@ void Game::updateGamePlayScreen()
 				{
 					if (bullets[i].setDirection(player.getBody(), player.getLookDirection()))
 					{
-						player.setCooldown(10);
+						player.setCooldown(10); // This sets the coldwon of the bullets.
 						break;
 					}
 				}
 			}
 			else
 			{
-				player.setCooldown(player.getCooldown() - 1);
+				player.setCooldown(player.getCooldown() - 1); // This subtracts the one from the coldown.
 			}
 		}
 
 		if (player.getHealth() <= 0)
 		{
-			deathSound.play();
-			GameScreen = GameStates::GameOver;
-			currentScore = m_score;
-			if (currentScore > higestScore)
+			m_deathSound.play(); // This plays a sound effect.
+			GameScreen = GameStates::GameOver; // This changes the enum.
+			m_currentScore = m_score; // This sets the current score to the players score.
+			if (m_currentScore > m_higestScore)
 			{
-				higestScore = currentScore;
-				m_score = 0;
+				m_higestScore = m_currentScore; // This sets the higest score to the current score.
+				m_score = 0; // This sets the player score to zero.
 			}
 		}
 
@@ -294,96 +313,102 @@ void Game::updateGamePlayScreen()
 		}
 	}
 }
-
+/// <summary>
+/// This updates the main menu screen.
+/// </summary>
 void Game::updateMainMenuScreen()
 {
 	if (GameScreen == GameStates::MainMenu)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			GameScreen = GameStates::GamePlay;
-			mainMenuMusic.stop();
-			GamePlayMusic.play();
+			GameScreen = GameStates::GamePlay; // This changes the enum.
+			m_mainMenuMusic.stop(); // This stops the music.
+			m_gamePlayMusic.play(); // This plays music.
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			GameScreen = GameStates::Help;
-			mainMenuMusic.play();
+			GameScreen = GameStates::Help; // This changes the enum.
+			m_mainMenuMusic.play(); // This plays music.
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
-			GameScreen = GameStates::Exit;
+			GameScreen = GameStates::Exit; // This changes the enum.
 		}
 	}
 
 	if (GameScreen == GameStates::MainMenu)
 	{
-		m_Gameplay.move(0, ySpeedForNewGameText);
-		m_help.move(0, ySpeedForHelpText);
-		m_exit.move(0, ySpeedForExitText);
+		m_Gameplay.move(0, m_ySpeedForNewGameText); // This moves text.
+		m_help.move(0, m_ySpeedForHelpText); // This moves text.
+		m_exit.move(0, m_ySpeedForExitText); // This moves text.
 
-		if (m_Gameplay.getPosition().y == 130 && !changedSpeedOnNewGameText)
+		if (m_Gameplay.getPosition().y == 130 && !m_changedSpeedOnNewGameText)
 		{
-			ySpeedForNewGameText *= speedOfText;
-			changedSpeedOnNewGameText = true;
+			m_ySpeedForNewGameText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnNewGameText = true; // This sets the bool to true.
 		}
-		if (m_Gameplay.getPosition().y == 150 && changedSpeedOnNewGameText)
+		if (m_Gameplay.getPosition().y == 150 && m_changedSpeedOnNewGameText)
 		{
-			ySpeedForNewGameText *= speedOfText;
-			changedSpeedOnNewGameText = false;
-		}
-
-		if (m_help.getPosition().y == 280 && !changedSpeedOnHelpText)
-		{
-			ySpeedForHelpText *= speedOfText;
-			changedSpeedOnHelpText = true;
+			m_ySpeedForNewGameText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnNewGameText = false; // This sets the bool to false.
 		}
 
-		if (m_help.getPosition().y == 300 && changedSpeedOnHelpText)
+		if (m_help.getPosition().y == 280 && !m_changedSpeedOnHelpText)
 		{
-			ySpeedForHelpText *= speedOfText;
-			changedSpeedOnHelpText = false;
+			m_ySpeedForHelpText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnHelpText = true; // This sets the bool to true.
 		}
 
-		if (m_exit.getPosition().y == 430 && !changedSpeedOnExitText)
+		if (m_help.getPosition().y == 300 && m_changedSpeedOnHelpText)
 		{
-			ySpeedForExitText *= speedOfText;
-			changedSpeedOnExitText = true;
+			m_ySpeedForHelpText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnHelpText = false; // This sets the bool to false.
 		}
 
-		if (m_exit.getPosition().y == 450 && changedSpeedOnExitText)
+		if (m_exit.getPosition().y == 430 && !m_changedSpeedOnExitText)
 		{
-			ySpeedForExitText *= speedOfText;
-			changedSpeedOnExitText = false;
+			m_ySpeedForExitText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnExitText = true; // This sets the bool to true.
+		}
+
+		if (m_exit.getPosition().y == 450 && m_changedSpeedOnExitText)
+		{
+			m_ySpeedForExitText *= m_speedOfText; // This reverses the way the text is going.
+			m_changedSpeedOnExitText = false; // This sets the bool to false.
 		}
 	}
 }
-
+/// <summary>
+/// This updates the help screen.
+/// </summary>
 void Game::updateHelpScreen()
 {
 	if (GameScreen == GameStates::Help)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
-			GameScreen = GameStates::MainMenu;
-			mainMenuMusic.play();
+			GameScreen = GameStates::MainMenu; // This changes the enum.
+			m_mainMenuMusic.play(); // This plays music.
 		}
 	}
 }
-
+/// <summary>
+/// This updates the game over screen.
+/// </summary>
 void Game::updateGameOverScreen()
 {
 	if (GameScreen == GameStates::GameOver)
 	{
-		m_highestScore.setString("Higest Score: " + std::to_string(higestScore));
-		m_currentScore.setString("Current Score " + std::to_string(currentScore));
+		m_highestScoreText.setString("Higest Score: " + std::to_string(m_higestScore)); // This updates the higest score.	
+		m_currentScoreText.setString("Current Score " + std::to_string(m_currentScore)); // This updates the current scroe.
 	}
 
 	if (GameScreen == GameStates::GameOver)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
-			GameScreen = GameStates::MainMenu;
+			GameScreen = GameStates::MainMenu; // This changes the enum.
 			player.setUpPlayer();
 			player.loadSpriteAndTexture();
 			for (int i = 0; i < MAX_ENEMIES; i++)
@@ -392,24 +417,30 @@ void Game::updateGameOverScreen()
 			}
 			enemyFollower1.setUpEnemyFollower();
 			enemyFollower2.setUpEnemyFollower();
-			GamePlayMusic.stop();
-			mainMenuMusic.play();
+			m_gamePlayMusic.stop(); // This stops music playing.
+			m_mainMenuMusic.play(); // This plays music.
 		}
 	}
 }
-
-
+/// <summary>
+/// This renders the game.
+/// </summary>
 void Game::render()
 {
-	m_window.clear();
+	m_window.clear(); // This clears all the screen.
+
+	// This draws everything on screen.
 	m_window.draw(m_backgroundSprite);
 	drawMainMenuScreen();
 	drawHelpScreen();
 	drawGamePlayScreen();
 	drawGameOverScreen();
-	m_window.display();
-}
 
+	m_window.display(); // This displays everything.
+}
+/// <summary>
+/// This draws the main menu screen.
+/// </summary>
 void Game::drawMainMenuScreen()
 {
 	if (GameScreen == GameStates::MainMenu)
@@ -419,7 +450,9 @@ void Game::drawMainMenuScreen()
 		m_window.draw(m_exit);
 	}
 }
-
+/// <summary>
+/// This draws the help screen.
+/// </summary>
 void Game::drawHelpScreen()
 {
 	if (GameScreen == GameStates::Help)
@@ -433,7 +466,9 @@ void Game::drawHelpScreen()
 		m_window.draw(m_HelpText);
 	}
 }
-
+/// <summary>
+/// This draws the game play screen.
+/// </summary>
 void Game::drawGamePlayScreen()
 {
 	if (GameScreen == GameStates::GamePlay)
@@ -453,19 +488,18 @@ void Game::drawGamePlayScreen()
 		m_window.draw(enemyFollower1.getBody());
 		m_window.draw(enemyFollower2.getBody());
 		m_window.draw(m_playerHealth);
-		m_window.draw(m_firstEnemyFollowerHealth);
-		m_window.draw(m_secondEnemyFollowerHealth);
 		m_window.draw(m_playerScore);
 	}
 }
-
+/// <summary>
+/// This draws the gamne over screen.
+/// </summary>
 void Game::drawGameOverScreen()
 {
 	if (GameScreen == GameStates::GameOver)
 	{
-		m_window.draw(m_currentScore);
-		m_window.draw(m_highestScore);
+		m_window.draw(m_currentScoreText);
+		m_window.draw(m_highestScoreText);
 		m_window.draw(m_gameOverText);
 	}
 }
-

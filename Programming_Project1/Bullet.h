@@ -9,22 +9,22 @@
 
 class Bullet
 {
-	sf::Sprite sprite; // This sf::Sprite member Variable repersents the sprite of the bullet. 
-	sf::Texture textureUp; // This sf::Texture member Variable repersents the texture of a bullet going in the forward Direction 
-	sf::Texture textureDown; // This sf::Texture member Variable repersents the texture of a bullet going in the Down Direction
-	sf::Texture textureLeft; // This sf::Texture member Variable repersents the texture of a bullet going in the Left Direction
-	sf::Texture textureRight; // This sf::Texture member Variable repersents the texture of a bullet going in the Right Direction
-	sf::Vector2f Velocities{}; // This is sf::Vector2f member variable repersents the velocity of a bullet.
-	sf::Vector2f position{}; // This is sf::Vector2f member variable repersents the current poistion of a bullet.
-	sf::Sound bulletSound; // This sf::Sound member variable repersents the bullet sound effect.
-	sf::SoundBuffer bulletSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet sound effect buffer.
-	sf::Sound bulletHitWallSound; // This sf::Sound member variable repersents the bullet hitting the wall sound effect.
-	sf::SoundBuffer bulletHitWallSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet hitting the wall sound effect buffer.
-	sf::Sound bulletHitSound; // This sf::Sound member variable repersents the bullet hit sound on the enemy follower.
-	sf::SoundBuffer bulletHitSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet hit sound on the enemy follower buffer.
-	sf::Sound bulletHitOtherEenemy; // This sf::SoundBuffer member variable repersents the bullet sound effect on the bouncing enemeies.
-	sf::SoundBuffer bulletHitOtherEenemyBuffer; // This sf::SoundBuffer member variable repersents the bullet sound effect on the bouncing enemeies buffer.
-	bool isActive; // This repersents if the bullet is active.
+	sf::Sprite m_sprite; // This sf::Sprite member Variable repersents the sprite of the bullet. 
+	sf::Texture m_textureUp; // This sf::Texture member Variable repersents the texture of a bullet going in the forward Direction 
+	sf::Texture m_textureDown; // This sf::Texture member Variable repersents the texture of a bullet going in the Down Direction
+	sf::Texture m_textureLeft; // This sf::Texture member Variable repersents the texture of a bullet going in the Left Direction
+	sf::Texture m_textureRight; // This sf::Texture member Variable repersents the texture of a bullet going in the Right Direction
+	sf::Vector2f m_velocity{}; // This is sf::Vector2f member variable repersents the velocity of a bullet.
+	sf::Vector2f m_position{}; // This is sf::Vector2f member variable repersents the current poistion of a bullet.
+	sf::Sound m_bulletSound; // This sf::Sound member variable repersents the bullet sound effect.
+	sf::SoundBuffer m_bulletSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet sound effect buffer.
+	sf::Sound m_bulletHitWallSound; // This sf::Sound member variable repersents the bullet hitting the wall sound effect.
+	sf::SoundBuffer m_bulletHitWallSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet hitting the wall sound effect buffer.
+	sf::Sound m_bulletHitSound; // This sf::Sound member variable repersents the bullet hit sound on the enemy follower.
+	sf::SoundBuffer m_bulletHitSoundBuffer; // This sf::SoundBuffer member variable repersents the bullet hit sound on the enemy follower buffer.
+	sf::Sound m_bulletHitOtherEenemy; // This sf::SoundBuffer member variable repersents the bullet sound effect on the bouncing enemeies.
+	sf::SoundBuffer m_bulletHitOtherEenemyBuffer; // This sf::SoundBuffer member variable repersents the bullet sound effect on the bouncing enemeies buffer.
+	bool m_isActive; // This repersents if the bullet is active.
 
 public:
 	Bullet(); // This is the default constructor for the bullet class.
@@ -37,9 +37,9 @@ public:
 	void changeTexture(sf::Vector2f t_playerLookDirection); // This member function changes the texture of the bullets.
 	void enemyFollowerCollision(sf::Sprite t_enemyFollower); // This member function checks collision between a bullet an enemy follower.
 	void enemyCollision(sf::Sprite t_enemy); // This member function checks for the collision between the bouncing enemies and the bullet 
-	inline sf::Sprite getBody() { return sprite; } // This member function gets the sprite of the bullet.
-	inline sf::Vector2f getPosition() { return position; } // This member function gets the poistion of the bullet.
-	inline bool getStatus()  {  return isActive; } // This member function gets the status of the bullet
+	inline sf::Sprite getBody() { return m_sprite; } // This member function gets the sprite of the bullet.
+	inline sf::Vector2f getPosition() { return m_position; } // This member function gets the poistion of the bullet.
+	inline bool getStatus() { return m_isActive; } // This member function gets the status of the bullet
 };
 
 #endif
