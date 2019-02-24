@@ -1,3 +1,19 @@
+/// <summary>
+/// @author = Mantas Zalnierius
+/// @date = Feb 24h of 2019
+/// 
+/// Time Taken: 24 hours
+/// 
+/// Description: This is a 2d shooter game. Where you control a character that can move up, down, left and right. He can shoot in those directions as well.
+/// The goal of the game is to get the highest score possible and you can do this by killing a type of enemy. This type of enemy is called an enemy follower
+/// What they do is follow you and when they touch you, you take damage. There is also another enemy which are called bouncing enemies which will bounce off the walls
+/// and if they collide with player, the player will lose health. These eneimes cannot be killed they are obstacles that you have manouver around to kill the other eneimes.
+/// You can look at the controls for this game, at the main menu.
+/// 
+/// Known bugs: One bug, that has got me off gaurd, is a bug where occisonally, the sound will stop working altogether. I'm not sure if this is just on my computer.
+/// When this bug occurs, I was not able to listen to anything at all after that with my earphones on my computer.
+/// 
+
 #ifndef GAME
 #define GAME
 
